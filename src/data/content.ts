@@ -6,50 +6,7 @@ export type Testimonial = {
   text: string;
 };
 
-export const testimonials: Testimonial[] = [
-  {
-    name: 'Hannah & Tom',
-    role: 'Wedding · Yorkshire',
-    event: 'Weddings',
-    rating: 5,
-    text: 'The Glam Robo Booth was the highlight of our evening. Guests are still talking about it weeks later. The attendant was so warm and kept everyone moving — we have a gallery full of memories.',
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'Marketing Lead · NovaTech',
-    event: 'Corporate',
-    rating: 5,
-    text: 'We booked SpinPix for our product launch and the branded clips generated more social engagement than the rest of the event combined. Professional, punctual and genuinely lovely to work with.',
-  },
-  {
-    name: 'Marcus Bell',
-    role: 'Birthday · London',
-    event: 'Parties',
-    rating: 5,
-    text: 'The 360 video booth went down an absolute treat. Slow-motion clips of my dad dancing are now family legend. Setup was seamless and the operator knew exactly how to hype the crowd.',
-  },
-  {
-    name: 'Greenfield Academy',
-    role: 'Prom Coordinator',
-    event: 'Proms',
-    rating: 5,
-    text: 'Our Year 11s loved every second. DBS-checked staff, brilliant with the students, and the school-branded overlay was a lovely touch. We have already booked again for next year.',
-  },
-  {
-    name: 'Sophie & James',
-    role: 'Wedding · Cotswolds',
-    event: 'Weddings',
-    rating: 5,
-    text: 'The audio guestbook was the most emotional part of our wedding. Hearing grandparents’ voices again is priceless. SpinPix delivered the recordings beautifully mastered.',
-  },
-  {
-    name: 'Olivia Chen',
-    role: 'Event Manager · Lumen Co.',
-    event: 'Corporate',
-    rating: 5,
-    text: 'Three events in a row and SpinPix have never missed. The digital-only booth is perfect for our brand activations — no paper, all shareable, and the lead capture option paid for itself.',
-  },
-];
+export const testimonials: Testimonial[] = [];
 
 export type FAQ = { q: string; a: string; category: string };
 
