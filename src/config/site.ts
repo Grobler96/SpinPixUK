@@ -13,6 +13,8 @@ export const site = {
   instagram: 'https://www.instagram.com/spinpixuk?igsh=MzdoNWFxc3ZkdTZi',
   facebook: 'https://www.facebook.com/share/1NxxFherc2/',
   google: 'https://share.google/NcfdmORITdOI4FxdL',
+  // Web3Forms access key. Public by design: it can only email the address it was created for.
+  formKey: 'f901d5ac-c71f-4e14-b3f0-a8a84f538029',
 } as const;
 
 export const nav = [

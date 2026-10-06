@@ -20,11 +20,9 @@ npm run build      # production build into dist/
 
 The form emails each enquiry to the business through [Web3Forms](https://web3forms.com); nothing is stored on a server we run.
 
-1. Create a free access key at web3forms.com using the email address that should receive enquiries.
-2. Add it to GitHub as a repository secret named `VITE_WEB3FORMS_KEY` (Settings > Secrets and variables > Actions), then re-run the deploy workflow.
-3. For local testing, put `VITE_WEB3FORMS_KEY=your-key` in a `.env` file.
-
-Without a key the form falls back to opening the visitor's email app.
+The access key lives in `src/config/site.ts` (`formKey`). It is safe to keep in the code: Web3Forms keys are public
+by design and can only email the address they were created for. To change the receiving address, create a new key at
+web3forms.com with that address and replace `formKey`. For local testing you can override it with `VITE_WEB3FORMS_KEY` in `.env`.
 
 ## Deployment
 
