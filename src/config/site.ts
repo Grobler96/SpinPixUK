@@ -3,7 +3,7 @@ export const site = {
   name: 'SpinPix UK',
   tagline: 'Capture the moment. Spin the fun.',
   description:
-    'Family-run photo booth hire across the UK, bringing modern, high-quality entertainment to weddings, birthdays, corporate events, proms and every special occasion.',
+    'Family-run photo booth hire company based in West Yorkshire, covering the whole of the UK with modern, high-quality entertainment for weddings, birthdays, corporate events, proms, school leavers’ parties, Christmas parties and all special occasions.',
   phone: '07985 732238',
   phoneHref: 'tel:+447985732238',
   email: 'spinpixuk@gmail.com',

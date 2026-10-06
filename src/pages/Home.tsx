@@ -108,7 +108,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Corporate']} className="bg-sun text-ink" />
+      <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Christmas Parties', 'Corporate']} className="bg-sun text-ink" />
 
       {/* BOOTHS */}
       <section className="px-4 sm:px-6 py-20 sm:py-28">
@@ -143,7 +143,7 @@ export default function Home() {
               <div className="h-full rounded-[2rem] border-2 border-line bg-pop text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
                 <span className="absolute -right-6 -top-6 text-[8rem] opacity-90 rotate-12" aria-hidden="true">🎉</span>
                 <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">Celebrations</p>
-                <h3 className="mt-2 font-display font-extrabold text-3xl sm:text-4xl">Weddings, parties & proms</h3>
+                <h3 className="mt-2 font-display font-extrabold text-3xl sm:text-4xl">Weddings, parties, proms & more</h3>
                 <p className="mt-4 text-white/90 max-w-md">Props, personalised overlays and the kind of laughs you’ll still be talking about at the next family do.</p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {eventTypes.filter((e) => e.slug !== 'corporate').map((e) => (
@@ -177,7 +177,7 @@ export default function Home() {
       <section className="bg-card border-y-2 border-line px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl">
           <Reveal><SectionHeading dark eyebrow="How it works" title="Easy for you. Even easier for your guests." /></Reveal>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.07}>
                 <div className="relative h-full rounded-3xl border-2 border-paper/20 p-7 hover:border-sun transition-colors">

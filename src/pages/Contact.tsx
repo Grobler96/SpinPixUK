@@ -106,7 +106,7 @@ export default function Contact() {
               <ul className="mt-5 space-y-4">
                 <li><a href={site.phoneHref} className="flex items-center gap-3 hover:text-sun"><Icon name="Phone" size={20} />{site.phone}</a></li>
                 <li><a href={site.emailHref} className="flex items-center gap-3 hover:text-sun break-all"><Icon name="Mail" size={20} />{site.email}</a></li>
-                <li className="flex items-start gap-3"><Icon name="MapPin" size={20} className="mt-0.5 shrink-0" />Based in {site.base}. {site.coverage}.</li>
+                <li className="flex items-start gap-3"><Icon name="MapPin" size={20} className="mt-0.5 shrink-0" />Based in {site.base}. {site.coverage}, with travel throughout Yorkshire and surrounding areas.</li>
               </ul>
             </div>
             <div className="rounded-3xl bg-sun border-2 border-line text-ink p-7">

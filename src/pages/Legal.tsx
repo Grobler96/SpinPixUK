@@ -38,9 +38,11 @@ export function Privacy() {
 export function Terms() {
   return (
     <Page title="Terms" desc="Terms for booking SpinPix UK photo booth hire.">
-      <p>Hire terms for {site.name}, including deposits, cancellations and liability, are confirmed in your quote and booking confirmation.</p>
-      <h2>Bookings</h2>
-      <p>A booking is confirmed once we’ve agreed the details and any deposit in writing.</p>
+      <p>These are the main terms for hiring from {site.name}. Full details are confirmed in your quote and booking confirmation.</p>
+      <h2>Bookings and payment</h2>
+      <p>Once you’re happy with your quotation, a £50 booking fee secures your date. The remaining balance is due the day before the event.</p>
+      <h2>Personalised overlays</h2>
+      <p>Before the event we design a personalised photo overlay to match your theme.</p>
       <h2>Questions</h2>
       <p>Email <a className="underline" href={site.emailHref}>{site.email}</a> or call {site.phone} and we’ll talk you through them.</p>
     </Page>
