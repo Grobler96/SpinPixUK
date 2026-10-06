@@ -10,6 +10,7 @@ export type Service = {
   capacity: string;
   tone: Tone;
   icon: string;
+  photos: { src: string; alt: string }[];
   popular?: boolean;
 };
 
@@ -31,6 +32,7 @@ export const services: Service[] = [
     capacity: 'Groups of 1–6',
     tone: 'volt',
     icon: 'Camera',
+    photos: [{ src: '/photos/selfie-pod.jpg', alt: 'SpinPix UK selfie pod with ring light at an evening event' }],
     popular: true,
   },
   {
@@ -50,6 +52,7 @@ export const services: Service[] = [
     capacity: 'Groups of 1–6',
     tone: 'mint',
     icon: 'Smartphone',
+    photos: [{ src: '/photos/letterbox-pod.jpg', alt: 'Letterbox selfie pod with a personalised Mr & Mrs wedding screen' }],
   },
   {
     slug: 'magic-mirror-photo-booth',
@@ -68,6 +71,11 @@ export const services: Service[] = [
     capacity: 'Groups of 1–5',
     tone: 'pop',
     icon: 'Sparkles',
+    photos: [
+      { src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a personalised school prom screen' },
+      { src: '/photos/magic-mirror-guests.jpg', alt: 'Guests in props posing at the magic mirror' },
+      { src: '/photos/magic-mirror-party.jpg', alt: 'Guests laughing with props in front of the magic mirror' },
+    ],
   },
   {
     slug: 'enclosed-photo-booth',
@@ -86,6 +94,11 @@ export const services: Service[] = [
     capacity: 'Groups of 1–6',
     tone: 'sun',
     icon: 'Monitor',
+    photos: [
+      { src: '/photos/booth-camper.jpg', alt: 'Enclosed photo booth with a camper van skin' },
+      { src: '/photos/booth-silver.jpg', alt: 'Enclosed photo booth with a silver skin and light-up PHOTOS sign' },
+      { src: '/photos/booth-wood.jpg', alt: 'Enclosed photo booth with a rustic wood skin' },
+    ],
   },
   {
     slug: '360-video-booth',
@@ -104,6 +117,7 @@ export const services: Service[] = [
     capacity: 'Small groups per spin',
     tone: 'grape',
     icon: 'Video',
+    photos: [{ src: '/photos/video-360.jpg', alt: 'Guests posing with inflatable guitars on the 360 video platform' }],
     popular: true,
   },
 ];

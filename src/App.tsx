@@ -4,6 +4,7 @@ import Home from '@/pages/Home';
 import Booths from '@/pages/Booths';
 import EventPage from '@/pages/EventPage';
 import Corporate from '@/pages/Corporate';
+import Gallery from '@/pages/Gallery';
 import About from '@/pages/About';
 import FAQs from '@/pages/FAQs';
 import Contact from '@/pages/Contact';
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/parties" element={<EventPage />} />
           <Route path="/proms" element={<EventPage />} />
           <Route path="/corporate" element={<Corporate />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />

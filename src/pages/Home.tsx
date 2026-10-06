@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Icon } from '@/components/Icon';
 import Marquee from '@/components/Marquee';
-import PhotoStrip from '@/components/PhotoStrip';
+import PhotoCard from '@/components/PhotoCard';
+import Reviews from '@/components/Reviews';
 import SectionHeading from '@/components/SectionHeading';
 import BoothCard from '@/components/BoothCard';
 import CTABand from '@/components/CTABand';
@@ -12,6 +13,7 @@ import { services } from '@/data/services';
 import { eventTypes } from '@/data/events';
 import { steps } from '@/data/content';
 import { site } from '@/config/site';
+import { gallery } from '@/data/gallery';
 import { useSEO } from '@/lib/useSEO';
 
 type Mode = 'fun' | 'pro';
@@ -90,18 +92,25 @@ export default function Home() {
             </AnimatePresence>
           </div>
 
-          {/* photo strip collage */}
-          <div className="relative h-[380px] sm:h-[480px] mx-auto w-full max-w-md" aria-hidden="true">
-            <motion.div className="absolute left-0 top-6" animate={{ rotate: pro ? -4 : -9 }} transition={{ type: 'spring', stiffness: 80 }}>
-              <PhotoStrip tones={pro ? ['volt', 'sun', 'mint'] : ['pop', 'sun', 'mint']} faces={pro ? ['🤝', '📸', '🚀'] : ['🤪', '😎', '🥳']} caption={pro ? 'Launch night' : 'Big night'} />
-            </motion.div>
-            <motion.div className="absolute left-[34%] top-0 sm:left-[36%]" animate={{ rotate: pro ? 2 : 4 }} transition={{ type: 'spring', stiffness: 80 }}>
-              <PhotoStrip tones={pro ? ['sun', 'volt', 'grape', 'mint'] : ['volt', 'grape', 'pop', 'sun']} faces={pro ? ['🏆', '🎤', '✨', '🥂'] : ['😂', '🕺', '🎉', '💃']} caption="SpinPix" className="scale-[1.08]" />
-            </motion.div>
-            <motion.div className="absolute right-0 top-14" animate={{ rotate: pro ? 7 : 11 }} transition={{ type: 'spring', stiffness: 80 }}>
-              <PhotoStrip tones={pro ? ['grape', 'volt', 'sun'] : ['mint', 'pop', 'volt']} faces={pro ? ['📈', '💡', '🎯'] : ['👑', '🦄', '🍾']} caption={pro ? 'Brand day' : 'Prom night'} />
-            </motion.div>
-            <div className={`absolute -bottom-2 left-4 rotate-[-6deg] px-4 py-2 rounded-xl border-2 border-line font-display font-extrabold text-lg shadow-hard-sm animate-wobble ${pro ? 'bg-mint text-ink' : 'bg-pop text-white'}`}>
+          {/* real-photo collage */}
+          <div className="relative h-[400px] sm:h-[500px] mx-auto w-full max-w-md">
+            {(pro
+              ? [
+                  { src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a personalised school prom screen', c: 'Custom branding', pos: '50% 45%', cls: 'left-0 top-8', r: -6 },
+                  { src: '/photos/selfie-pod.jpg', alt: 'SpinPix UK branded selfie pod', c: 'Branded pod', pos: '50% 35%', cls: 'left-[32%] top-0', r: 3 },
+                  { src: '/photos/video-360.jpg', alt: 'Guests on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'right-0 top-16', r: 9 },
+                ]
+              : [
+                  { src: '/photos/video-360.jpg', alt: 'Guests posing with inflatable guitars on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'left-0 top-8', r: -7 },
+                  { src: '/photos/magic-mirror-guests.jpg', alt: 'Guests in props posing at the magic mirror', c: 'Magic mirror', pos: '50% 40%', cls: 'left-[32%] top-0', r: 3 },
+                  { src: '/photos/booth-camper.jpg', alt: 'Enclosed photo booth with a camper van skin', c: 'Camper van booth', pos: '40% 50%', cls: 'right-0 top-16', r: 9 },
+                ]
+            ).map((p) => (
+              <motion.div key={p.src} className={`absolute ${p.cls}`} animate={{ rotate: p.r }} transition={{ type: 'spring', stiffness: 80 }}>
+                <PhotoCard src={p.src} alt={p.alt} caption={p.c} pos={p.pos} />
+              </motion.div>
+            ))}
+            <div aria-hidden="true" className={`absolute -bottom-2 left-4 rotate-[-6deg] px-4 py-2 rounded-xl border-2 border-line font-display font-extrabold text-lg shadow-hard-sm animate-wobble ${pro ? 'bg-mint text-ink' : 'bg-pop text-white'}`}>
               {pro ? 'Your logo here ✓' : 'Say cheese! 📸'}
             </div>
           </div>
@@ -173,6 +182,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* REAL EVENTS */}
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <SectionHeading eyebrow="Real events" title="Spotted at a party near you" />
+              <Link to="/gallery" className="btn btn-ghost">See the gallery <Icon name="ArrowRight" size={18} /></Link>
+            </div>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {gallery.slice(0, 4).map((p, i) => (
+              <Reveal key={p.src} delay={i * 0.05}>
+                <img src={p.src} alt={p.alt} loading="lazy" className={`w-full aspect-[3/4] object-cover rounded-3xl border-2 border-line shadow-hard-sm ${i % 2 ? 'md:translate-y-6' : ''}`} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section className="bg-card border-y-2 border-line px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl">
@@ -205,6 +233,7 @@ export default function Home() {
         </div>
       </section>
 
+      <Reviews />
       <CTABand />
     </>
   );

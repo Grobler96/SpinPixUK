@@ -2,18 +2,12 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import SectionHeading from '@/components/SectionHeading';
 import BoothCard from '@/components/BoothCard';
-import PhotoStrip from '@/components/PhotoStrip';
+import PhotoCard from '@/components/PhotoCard';
 import CTABand from '@/components/CTABand';
 import Reveal from '@/components/Reveal';
 import { getEvent } from '@/data/events';
 import { getService, toneClasses } from '@/data/services';
 import { useSEO } from '@/lib/useSEO';
-
-const faces: Record<string, string[]> = {
-  weddings: ['🥂', '💃', '💍', '😍'],
-  parties: ['🎂', '🤪', '🎈', '🕺'],
-  proms: ['👗', '🪩', '😎', '✨'],
-};
 
 export default function EventPage() {
   const slug = useLocation().pathname.slice(1);
@@ -32,8 +26,10 @@ export default function EventPage() {
             <p className="mt-6 text-lg sm:text-xl max-w-xl opacity-90 leading-relaxed">{ev.blurb}</p>
             <Link to={`/contact?event=${ev.slug}`} className="btn btn-ink mt-8">Get a {ev.name.toLowerCase().replace(/s$/, '')} quote <Icon name="ArrowRight" size={18} /></Link>
           </div>
-          <div className="hidden md:flex justify-center" aria-hidden="true">
-            <PhotoStrip tones={['pop', 'sun', 'volt', 'mint']} faces={faces[ev.slug]} caption={ev.name} className="rotate-6 scale-110" />
+          <div className="hidden md:flex justify-center relative h-[420px]">
+            {ev.photos.map((p, i) => (
+              <PhotoCard key={p.src} src={p.src} alt={p.alt} pos={p.pos} className={`absolute ${i === 0 ? 'left-4 top-0 -rotate-6' : 'right-0 top-24 rotate-6'}`} />
+            ))}
           </div>
         </div>
       </section>

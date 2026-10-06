@@ -21,6 +21,7 @@ export const nav = [
   { label: 'Parties', path: '/parties' },
   { label: 'Proms', path: '/proms' },
   { label: 'Corporate', path: '/corporate' },
+  { label: 'Gallery', path: '/gallery' },
   { label: 'About', path: '/about' },
   { label: 'FAQs', path: '/faqs' },
 ] as const;

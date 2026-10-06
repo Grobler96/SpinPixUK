@@ -5,6 +5,7 @@ import CTABand from '@/components/CTABand';
 import Reveal from '@/components/Reveal';
 import { services } from '@/data/services';
 import { steps } from '@/data/content';
+import Reviews from '@/components/Reviews';
 import { site } from '@/config/site';
 import { useSEO } from '@/lib/useSEO';
 
@@ -119,6 +120,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <Reviews />
       <CTABand />
     </>
   );

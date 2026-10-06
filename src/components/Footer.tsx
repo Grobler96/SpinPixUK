@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-card text-paper border-t-2 border-line mt-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <Logo />
+          <Logo className="h-16" />
           <p className="mt-5 text-paper/70 max-w-xs">{site.tagline} Family-run photo booth hire for weddings, parties, proms and corporate events.</p>
           <div className="mt-6 flex gap-3">
             {[

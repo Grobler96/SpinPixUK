@@ -54,8 +54,8 @@ export default function Corporate() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="rounded-3xl bg-paper text-ink p-8 sm:p-10 border-2 border-sun">
-              <p className="font-display font-bold text-sm uppercase tracking-[0.2em] text-pop">Best for business</p>
-              <h3 className="mt-2 font-display font-extrabold text-3xl">Our most-booked brand kit</h3>
+              <p className="font-display font-bold text-sm uppercase tracking-[0.2em] text-pop">For business</p>
+              <h3 className="mt-2 font-display font-extrabold text-3xl">Booths made for brands</h3>
               <div className="mt-6 space-y-5">
                 {ev.booths.slice(0, 3).map((b) => {
                   const s = getService(b)!;

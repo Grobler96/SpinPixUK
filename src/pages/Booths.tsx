@@ -21,13 +21,19 @@ export default function Booths() {
           const t = toneClasses[s.tone];
           return (
             <Reveal key={s.slug}>
-              <article id={s.slug} className="scroll-mt-28 mx-auto max-w-6xl grid md:grid-cols-[320px_1fr] bg-card border-2 border-line rounded-[2rem] shadow-hard overflow-hidden">
-                <div className={`${t.bg} ${t.text} p-8 flex flex-col justify-between gap-10 md:border-r-2 border-b-2 md:border-b-0 border-line`}>
-                  <Icon name={s.icon} size={64} />
-                  <div>
-                    <p className="font-display font-bold text-sm uppercase tracking-widest opacity-80">0{i + 1}</p>
-                    <p className="font-display font-extrabold text-2xl leading-tight">{s.capacity}</p>
-                    <p className="opacity-90">{s.duration}</p>
+              <article id={s.slug} className="scroll-mt-28 mx-auto max-w-6xl grid md:grid-cols-[380px_1fr] bg-card border-2 border-line rounded-[2rem] shadow-hard overflow-hidden">
+                <div className="md:border-r-2 border-b-2 md:border-b-0 border-line flex flex-col bg-card">
+                  <div className={`grid gap-px ${s.photos.length > 1 ? 'grid-cols-2' : ''} flex-1 min-h-[260px]`}>
+                    {s.photos.slice(0, 3).map((p, k) => (
+                      <img key={p.src} src={p.src} alt={p.alt} loading="lazy" className={`w-full h-full object-cover object-[50%_30%] ${s.photos.length === 3 && k === 0 ? 'col-span-2 max-h-72' : 'max-h-72'} ${s.photos.length === 1 ? 'max-h-none' : ''}`} />
+                    ))}
+                  </div>
+                  <div className={`${t.bg} ${t.text} px-6 py-4 flex items-center gap-4 border-t-2 border-line`}>
+                    <Icon name={s.icon} size={28} />
+                    <div>
+                      <p className="font-display font-extrabold leading-tight">{s.capacity}</p>
+                      <p className="text-sm opacity-90">{s.duration} · 0{i + 1}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="p-8 sm:p-10">

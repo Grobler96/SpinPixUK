@@ -10,10 +10,11 @@ export default function BoothCard({ s, i = 0 }: { s: Service; i?: number }) {
       to={`/booths#${s.slug}`}
       className={`group relative flex flex-col bg-card border-2 border-line rounded-3xl shadow-hard overflow-hidden transition-transform hover:-translate-y-1 hover:rotate-0 ${tilt}`}
     >
-      <div className={`${t.bg} ${t.text} border-b-2 border-line px-6 py-8 flex items-center justify-between`}>
-        <Icon name={s.icon} size={44} />
+      <div className="relative border-b-2 border-line aspect-[4/3] overflow-hidden bg-card">
+        <img src={s.photos[0].src} alt={s.photos[0].alt} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-[50%_30%] transition-transform duration-500 group-hover:scale-105" />
+        <span className={`absolute left-4 top-4 grid place-items-center w-11 h-11 rounded-2xl border-2 border-line ${t.bg} ${t.text}`}><Icon name={s.icon} size={22} /></span>
         {s.popular && (
-          <span className="bg-paper text-ink border-2 border-line rounded-full px-3 py-1 text-xs font-display font-extrabold uppercase tracking-wider rotate-6">
+          <span className="absolute right-4 top-4 bg-paper text-ink border-2 border-line rounded-full px-3 py-1 text-xs font-display font-extrabold uppercase tracking-wider rotate-6">
             Crowd favourite
           </span>
         )}
