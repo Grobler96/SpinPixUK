@@ -1,4 +1,5 @@
 import type { Tone } from './services';
+import { asset } from '@/lib/asset';
 
 export type EventType = {
   slug: 'weddings' | 'parties' | 'proms' | 'corporate';
@@ -28,7 +29,7 @@ export const eventTypes: EventType[] = [
       { icon: 'Clock', title: 'Flexible hire', text: 'Drinks reception, evening party, or the whole day.' },
     ],
     booths: ['magic-mirror-photo-booth', 'enclosed-photo-booth', 'selfie-pod', 'letterbox-selfie-pod'],
-    photos: [{ src: '/photos/letterbox-pod.jpg', alt: 'Letterbox selfie pod with a personalised Mr & Mrs wedding screen' }, { src: '/photos/booth-wood.jpg', alt: 'Enclosed photo booth with a rustic wood skin' }],
+    photos: [{ src: asset('photos/letterbox-pod.jpg'), alt: 'Letterbox selfie pod with a personalised Mr & Mrs wedding screen' }, { src: asset('photos/booth-wood.jpg'), alt: 'Enclosed photo booth with a rustic wood skin' }],
   },
   {
     slug: 'parties',
@@ -45,7 +46,7 @@ export const eventTypes: EventType[] = [
       { icon: 'Cake', title: 'All ages welcome', text: 'From kids’ parties to milestone birthdays.' },
     ],
     booths: ['360-video-booth', 'selfie-pod', 'enclosed-photo-booth', 'magic-mirror-photo-booth'],
-    photos: [{ src: '/photos/video-360.jpg', alt: 'Guests posing with inflatable guitars on the 360 video platform', pos: '50% 60%' }, { src: '/photos/magic-mirror-guests.jpg', alt: 'Guests in props posing at the magic mirror' }],
+    photos: [{ src: asset('photos/video-360.jpg'), alt: 'Guests posing with inflatable guitars on the 360 video platform', pos: '50% 60%' }, { src: asset('photos/magic-mirror-guests.jpg'), alt: 'Guests in props posing at the magic mirror' }],
   },
   {
     slug: 'proms',
@@ -62,7 +63,7 @@ export const eventTypes: EventType[] = [
       { icon: 'MessageCircle', title: 'Talk to us', text: 'Tell us your numbers and venue and we’ll suggest the right booth.' },
     ],
     booths: ['360-video-booth', 'magic-mirror-photo-booth', 'enclosed-photo-booth', 'selfie-pod'],
-    photos: [{ src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a personalised school prom screen', pos: '50% 45%' }, { src: '/photos/video-360.jpg', alt: 'Guests on the 360 video platform', pos: '50% 60%' }],
+    photos: [{ src: asset('photos/magic-mirror-prom.jpg'), alt: 'Magic mirror with a personalised school prom screen', pos: '50% 45%' }, { src: asset('photos/video-360.jpg'), alt: 'Guests on the 360 video platform', pos: '50% 60%' }],
   },
   {
     slug: 'corporate',
@@ -79,7 +80,7 @@ export const eventTypes: EventType[] = [
       { icon: 'ShieldCheck', title: 'Fully insured', text: 'Reliable, professional service from first enquiry to the event itself.' },
     ],
     booths: ['360-video-booth', 'selfie-pod', 'letterbox-selfie-pod', 'enclosed-photo-booth'],
-    photos: [{ src: '/photos/selfie-pod.jpg', alt: 'SpinPix UK branded selfie pod', pos: '50% 35%' }, { src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a custom branded screen', pos: '50% 45%' }],
+    photos: [{ src: asset('photos/selfie-pod.jpg'), alt: 'SpinPix UK branded selfie pod', pos: '50% 35%' }, { src: asset('photos/magic-mirror-prom.jpg'), alt: 'Magic mirror with a custom branded screen', pos: '50% 45%' }],
   },
 ];
 
