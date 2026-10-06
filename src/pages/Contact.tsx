@@ -4,8 +4,10 @@ import { Icon } from '@/components/Icon';
 import SectionHeading from '@/components/SectionHeading';
 import { services } from '@/data/services';
 import { site } from '@/config/site';
-import { supabase } from '@/lib/supabase';
 import { useSEO } from '@/lib/useSEO';
+
+// Public access key from web3forms.com; it only lets the form email the address it was created for.
+const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
 
 const eventOptions = ['Weddings', 'Parties', 'Corporate', 'Proms', 'Other'];
 
@@ -24,22 +26,40 @@ export default function Contact() {
     const v = (k: string) => ((f.get(k) as string) || '').trim();
     setName(v('name').split(' ')[0]);
 
-    const guests = parseInt(v('guests'), 10);
-    const row = {
-      name: v('name'), email: v('email'), phone: v('phone') || null, event_type: v('event_type'),
-      event_date: v('event_date') || null, venue: v('venue') || null, service: v('service') || null,
-      guests: Number.isFinite(guests) ? guests : null, message: v('message') || null,
+    const details: Record<string, string> = {
+      Phone: v('phone'), 'Event type': v('event_type'),
+      'Event date': v('event_date'), Venue: v('venue'), 'Booth interested in': v('service'),
+      'Approx. guests': v('guests'), Message: v('message'),
     };
+    const filled = [['Name', v('name')], ['Email', v('email')], ...Object.entries(details)].filter(([, val]) => val);
 
-    if (!supabase) {
-      // Database not configured: fall back to the visitor's email client.
-      const body = Object.entries(row).filter(([, val]) => val).map(([k, val]) => `${k}: ${val}`).join('\n');
+    if (!accessKey) {
+      // Email service not configured: fall back to the visitor's email app.
+      const body = filled.map(([k, val]) => `${k}: ${val}`).join('\n');
       window.location.href = `${site.emailHref}?subject=${encodeURIComponent('Quote enquiry')}&body=${encodeURIComponent(body)}`;
       return;
     }
+
     setStatus('sending');
-    const { error } = await supabase.from('enquiries').insert(row);
-    setStatus(error ? 'error' : 'sent');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New SpinPix enquiry: ${v('event_type')} from ${v('name')}`,
+          from_name: 'SpinPix UK website',
+          botcheck: f.get('botcheck') ? 'true' : '',
+          name: v('name'),
+          email: v('email'), // used as the reply-to address
+          ...Object.fromEntries(Object.entries(details).filter(([, val]) => val)),
+        }),
+      });
+      const json = await res.json();
+      setStatus(json.success ? 'sent' : 'error');
+    } catch {
+      setStatus('error');
+    }
   };
 
   if (status === 'sent') {
@@ -66,6 +86,7 @@ export default function Contact() {
       <section className="px-4 sm:px-6 py-16">
         <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-[1fr_340px]">
           <form onSubmit={submit} className="bg-card border-2 border-line rounded-[2rem] shadow-hard p-6 sm:p-10 grid gap-5 sm:grid-cols-2">
+            <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <div><L id="name">Your name *</L><input id="name" name="name" required className="field" autoComplete="name" /></div>
             <div><L id="email">Email *</L><input id="email" name="email" type="email" required className="field" autoComplete="email" /></div>
             <div><L id="phone">Phone</L><input id="phone" name="phone" type="tel" className="field" autoComplete="tel" /></div>
