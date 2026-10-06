@@ -30,7 +30,7 @@ export const services: Service[] = [
       'Online gallery after the event',
     ],
     duration: 'Flexible hire',
-    capacity: 'Groups of 1–6',
+    capacity: 'Medium groups',
     tone: 'volt',
     icon: 'Camera',
     photos: [{ src: asset('photos/selfie-pod.jpg'), alt: 'SpinPix UK selfie pod with ring light at an evening event' }],
@@ -69,7 +69,7 @@ export const services: Service[] = [
       'Digital and print packages available',
     ],
     duration: 'Flexible hire',
-    capacity: 'Groups of 1–5',
+    capacity: 'Large groups',
     tone: 'pop',
     icon: 'Sparkles',
     photos: [
