@@ -18,9 +18,13 @@ npm run build      # production build into dist/
 
 ## Enquiry form
 
-Enquiries are saved to Supabase (`supabase/migrations`). Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
-(locally in `.env`; on GitHub as repository variable `VITE_SUPABASE_URL` and secret `VITE_SUPABASE_ANON_KEY`).
-Without them the form opens the visitor's email app instead.
+The form emails each enquiry to the business through [Web3Forms](https://web3forms.com); nothing is stored on a server we run.
+
+1. Create a free access key at web3forms.com using the email address that should receive enquiries.
+2. Add it to GitHub as a repository secret named `VITE_WEB3FORMS_KEY` (Settings > Secrets and variables > Actions), then re-run the deploy workflow.
+3. For local testing, put `VITE_WEB3FORMS_KEY=your-key` in a `.env` file.
+
+Without a key the form falls back to opening the visitor's email app.
 
 ## Deployment
 

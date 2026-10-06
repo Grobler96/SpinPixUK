@@ -28,7 +28,7 @@ export function Privacy() {
         <li>To communicate with you about a booking.</li>
       </ul>
       <h2>Sharing</h2>
-      <p>We don’t sell your data. We only share it with service providers that help us run the business (for example, hosting and email) where needed.</p>
+      <p>We don’t sell your data and we don’t keep enquiries in a database on this website. When you submit the enquiry form it is emailed to us through an email delivery service (Web3Forms), which processes it on our behalf. This website is hosted on GitHub Pages.</p>
       <h2>Your rights</h2>
       <p>Under UK GDPR you can ask to see, correct or delete your data. Email <a className="underline" href={site.emailHref}>{site.email}</a>.</p>
     </Page>
