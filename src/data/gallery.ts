@@ -1,26 +1,13 @@
-export type GalleryImage = {
-  src: string;
-  alt: string;
-  category: 'Weddings' | 'Parties' | 'Corporate' | 'Proms';
-};
+export type Photo = { src: string; alt: string; caption: string; ratio: 'tall' | 'wide' | 'square' };
 
-export const galleryImages: GalleryImage[] = [
-  { src: 'https://images.pexels.com/photos/1779415/pexels-photo-1779415.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Wedding couple at a photo booth', category: 'Weddings' },
-  { src: 'https://images.pexels.com/photos/796620/pexels-photo-796620.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Birthday party guests laughing in a booth', category: 'Parties' },
-  { src: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Corporate event booth with branded overlay', category: 'Corporate' },
-  { src: 'https://images.pexels.com/photos/1468322/pexels-photo-1468322.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Prom students posing in glam booth', category: 'Proms' },
-  { src: 'https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Wedding guests sharing a photo strip', category: 'Weddings' },
-  { src: 'https://images.pexels.com/photos/1721349/pexels-photo-1721349.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Party crowd around a 360 video booth', category: 'Parties' },
-  { src: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Conference attendees at a branded booth', category: 'Corporate' },
-  { src: 'https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Prom couple on the 360 platform', category: 'Proms' },
-  { src: 'https://images.pexels.com/photos/1024312/pexels-photo-1024312.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Bride and groom printing photos', category: 'Weddings' },
-  { src: 'https://images.pexels.com/photos/787961/pexels-photo-787961.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Friends with props at a birthday booth', category: 'Parties' },
-  { src: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Brand activation with custom frame', category: 'Corporate' },
-  { src: 'https://images.pexels.com/photos/1456613/pexels-photo-1456613.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Prom group with magic mirror', category: 'Proms' },
-  { src: 'https://images.pexels.com/photos/1779431/pexels-photo-1779431.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Wedding audio guestbook phone', category: 'Weddings' },
-  { src: 'https://images.pexels.com/photos/458676/pexels-photo-458676.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Anniversary couple in the glam booth', category: 'Parties' },
-  { src: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Corporate gala booth with logo overlay', category: 'Corporate' },
-  { src: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Leavers’ prom photo strip', category: 'Proms' },
+export const gallery: Photo[] = [
+  { src: '/photos/video-360.jpg', alt: 'Guests posing with inflatable guitars on the 360 video platform', caption: '360 Video Booth', ratio: 'tall' },
+  { src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a personalised school prom screen', caption: 'Magic Mirror · school prom', ratio: 'tall' },
+  { src: '/photos/booth-camper.jpg', alt: 'Enclosed photo booth with a camper van skin', caption: 'Enclosed Booth · camper van skin', ratio: 'wide' },
+  { src: '/photos/selfie-pod.jpg', alt: 'SpinPix UK selfie pod with ring light', caption: 'Selfie Pod', ratio: 'tall' },
+  { src: '/photos/magic-mirror-party.jpg', alt: 'Guests laughing with props in front of the magic mirror', caption: 'Magic Mirror · party', ratio: 'wide' },
+  { src: '/photos/letterbox-pod.jpg', alt: 'Letterbox selfie pod with a personalised Mr & Mrs wedding screen', caption: 'Letterbox Selfie Pod · wedding', ratio: 'tall' },
+  { src: '/photos/booth-silver.jpg', alt: 'Enclosed photo booth with a silver skin and light-up PHOTOS sign', caption: 'Enclosed Booth · silver skin', ratio: 'square' },
+  { src: '/photos/magic-mirror-guests.jpg', alt: 'Guests in props posing at the magic mirror', caption: 'Magic Mirror · guests', ratio: 'tall' },
+  { src: '/photos/booth-wood.jpg', alt: 'Enclosed photo booth with a rustic wood skin', caption: 'Enclosed Booth · wood skin', ratio: 'tall' },
 ];
-
-export const galleryCategories = ['All', 'Weddings', 'Parties', 'Corporate', 'Proms'] as const;

@@ -1,15 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
-import Experiences from '@/pages/Experiences';
-import EventTypePage from '@/pages/EventTypePage';
+import Booths from '@/pages/Booths';
+import EventPage from '@/pages/EventPage';
+import Corporate from '@/pages/Corporate';
 import Gallery from '@/pages/Gallery';
 import About from '@/pages/About';
 import FAQs from '@/pages/FAQs';
 import Contact from '@/pages/Contact';
-import Privacy from '@/pages/Privacy';
-import Terms from '@/pages/Terms';
-import Accessibility from '@/pages/Accessibility';
+import { Privacy, Terms, Accessibility } from '@/pages/Legal';
 import NotFound from '@/pages/NotFound';
 
 export default function App() {
@@ -18,11 +17,11 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/experiences" element={<Experiences />} />
-          <Route path="/weddings" element={<EventTypePage />} />
-          <Route path="/parties" element={<EventTypePage />} />
-          <Route path="/corporate" element={<EventTypePage />} />
-          <Route path="/proms" element={<EventTypePage />} />
+          <Route path="/booths" element={<Booths />} />
+          <Route path="/weddings" element={<EventPage />} />
+          <Route path="/parties" element={<EventPage />} />
+          <Route path="/proms" element={<EventPage />} />
+          <Route path="/corporate" element={<Corporate />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
           <Route path="/faqs" element={<FAQs />} />

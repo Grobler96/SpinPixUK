@@ -1,226 +1,240 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Star, Quote } from 'lucide-react';
-import AnimatedHero from '@/components/AnimatedHero';
-import SectionHeading from '@/components/SectionHeading';
-import ServiceCard from '@/components/ServiceCard';
-import CTABand from '@/components/CTABand';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Icon } from '@/components/Icon';
+import Marquee from '@/components/Marquee';
+import PhotoCard from '@/components/PhotoCard';
+import Reviews from '@/components/Reviews';
+import SectionHeading from '@/components/SectionHeading';
+import BoothCard from '@/components/BoothCard';
+import CTABand from '@/components/CTABand';
+import Reveal from '@/components/Reveal';
 import { services } from '@/data/services';
-import { eventTypes } from '@/data/eventTypes';
-import { galleryImages } from '@/data/gallery';
-import { testimonials, benefits, processSteps, stats } from '@/data/content';
+import { eventTypes } from '@/data/events';
+import { steps } from '@/data/content';
 import { site } from '@/config/site';
+import { gallery } from '@/data/gallery';
 import { useSEO } from '@/lib/useSEO';
+
+type Mode = 'fun' | 'pro';
+
+const hero = {
+  fun: {
+    kicker: 'Weddings · Parties · Proms',
+    title: ['Photo booths', 'that make the', 'party.'],
+    text: 'Selfie pods, magic mirrors, classic booths and slow-mo 360 video. We bring the props, the lighting and the good-time energy. You bring the guests.',
+    cta: 'Plan my celebration',
+    to: '/contact',
+  },
+  pro: {
+    kicker: 'Launches · Conferences · Award nights',
+    title: ['Branded', 'content that', 'people share.'],
+    text: 'Bespoke overlays, 360 video with your branding and instant digital sharing. Professional setup, polished results, and a team that’s easy to work with.',
+    cta: 'Enquire for your business',
+    to: '/corporate',
+  },
+} as const;
 
 export default function Home() {
   useSEO();
+  const [mode, setMode] = useState<Mode>('fun');
+  const h = hero[mode];
+  const pro = mode === 'pro';
 
   return (
     <>
-      {/* 1. Hero */}
-      <AnimatedHero />
+      {/* HERO */}
+      <section className={`relative overflow-hidden border-b-2 border-line transition-colors duration-500 ${pro ? 'bg-navy text-white' : 'bg-ink'}`}>
+        <div className={`absolute inset-0 transition-opacity duration-500 ${pro ? 'grid-lines opacity-100' : 'grain opacity-100'}`} aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-16 sm:pt-16 sm:pb-24 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
+          <div>
+            {/* audience switch */}
+            <div role="tablist" aria-label="Who are you booking for?" className={`inline-flex p-1 rounded-full border-2 ${pro ? 'border-white/40 bg-white/10' : 'border-line bg-card'}`}>
+              {([['fun', 'Celebrations', 'PartyPopper'], ['pro', 'Business', 'Briefcase']] as const).map(([m, label, icon]) => (
+                <button
+                  key={m}
+                  role="tab"
+                  aria-selected={mode === m}
+                  onClick={() => setMode(m)}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-display font-bold text-sm transition-colors ${
+                    mode === m ? (pro ? 'bg-sun text-ink' : 'bg-paper text-ink') : pro ? 'text-white/70' : 'text-paper/60'
+                  }`}
+                >
+                  <Icon name={icon} size={16} /> {label}
+                </button>
+              ))}
+            </div>
 
-      {/* 2. Stats bar */}
-      <section className="relative -mt-10 z-30 px-4">
-        <div className="mx-auto max-w-5xl rounded-2xl glass-strong p-6 sm:p-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="grid place-items-center w-11 h-11 rounded-xl bg-gradient-to-br from-electric/20 to-violet/20 text-cyan mx-auto mb-3">
-                  <Icon name={s.icon} size={20} />
-                </div>
-                <p className="font-display font-bold text-2xl sm:text-3xl text-ice">{s.value}</p>
-                <p className="text-xs sm:text-sm text-silver/60 mt-1">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Services */}
-      <section className="py-20 px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Our Experiences"
-            title="Booths for every kind of celebration"
-            subtitle="From classic prints to cinematic 360° spins, each booth is delivered, set up and run by our team — so you can focus on having fun."
-          />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => <ServiceCard key={s.slug} service={s} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Why choose us */}
-      <section className="py-20 px-4 sm:px-6 bg-midnight/30">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Why SpinPix"
-            title="Everything handled, start to finish"
-            subtitle="We obsess over the details so your event runs flawlessly — from the first enquiry to the final gallery delivery."
-          />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((b) => (
-              <div key={b.title} className="rounded-2xl glass p-6 hover:border-cyan/30 transition-colors">
-                <div className="grid place-items-center w-12 h-12 rounded-xl bg-gradient-to-br from-electric/20 to-violet/20 text-cyan mb-4">
-                  <Icon name={b.icon} size={22} />
-                </div>
-                <h3 className="font-display font-semibold text-lg text-ice mb-2">{b.title}</h3>
-                <p className="text-sm text-silver/70 leading-relaxed">{b.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Event types */}
-      <section className="py-20 px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Events We Love"
-            title="Tailored for your occasion"
-            subtitle="Every event has its own energy. We match the booth, props and overlay to your celebration."
-          />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {eventTypes.map((e) => (
-              <Link
-                key={e.slug}
-                to={`/${e.slug}`}
-                className="group relative rounded-2xl overflow-hidden h-72 neon-edge"
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={mode}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
               >
-                <img src={e.heroImage} alt={e.name} loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-5">
-                  <h3 className="font-display font-bold text-xl text-ice mb-1">{e.name}</h3>
-                  <p className="text-sm text-silver/70 mb-3">{e.tagline}</p>
-                  <span className="inline-flex items-center gap-1.5 text-sm text-cyan font-semibold">
-                    Discover <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-                  </span>
+                <p className={`mt-8 font-display font-bold text-sm uppercase tracking-[0.2em] ${pro ? 'text-sun' : 'text-pop'}`}>{h.kicker}</p>
+                <h1 className="mt-3 font-display font-extrabold text-[2.9rem] sm:text-7xl lg:text-[5.4rem] leading-[0.95]">
+                  {h.title.map((l, i) => (
+                    <span key={l} className="block">
+                      {i === h.title.length - 1 ? (
+                        <span className={`inline-block px-3 -mx-1 rounded-xl ${pro ? 'bg-pop text-white neon-box' : 'bg-pop text-white neon-box -rotate-1'}`}>{l}</span>
+                      ) : l}
+                    </span>
+                  ))}
+                </h1>
+                <p className={`mt-7 text-lg sm:text-xl max-w-xl leading-relaxed ${pro ? 'text-white/75' : 'text-paper/75'}`}>{h.text}</p>
+                <div className="mt-9 flex flex-wrap gap-3">
+                  <Link to={h.to} className={`btn ${pro ? 'btn-sun' : 'btn-pop'}`}>{h.cta} <Icon name="ArrowRight" size={18} /></Link>
+                  <Link to="/booths" className={`btn ${pro ? 'border-white text-white hover:bg-white hover:text-navy' : 'btn-ghost'}`}>Meet the booths</Link>
                 </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* real-photo collage */}
+          <div className="relative h-[400px] sm:h-[500px] mx-auto w-full max-w-md">
+            {(pro
+              ? [
+                  { src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a personalised school prom screen', c: 'Custom branding', pos: '50% 45%', cls: 'left-0 top-8', r: -6 },
+                  { src: '/photos/selfie-pod.jpg', alt: 'SpinPix UK branded selfie pod', c: 'Branded pod', pos: '50% 35%', cls: 'left-[32%] top-0', r: 3 },
+                  { src: '/photos/video-360.jpg', alt: 'Guests on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'right-0 top-16', r: 9 },
+                ]
+              : [
+                  { src: '/photos/video-360.jpg', alt: 'Guests posing with inflatable guitars on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'left-0 top-8', r: -7 },
+                  { src: '/photos/magic-mirror-guests.jpg', alt: 'Guests in props posing at the magic mirror', c: 'Magic mirror', pos: '50% 40%', cls: 'left-[32%] top-0', r: 3 },
+                  { src: '/photos/booth-camper.jpg', alt: 'Enclosed photo booth with a camper van skin', c: 'Camper van booth', pos: '40% 50%', cls: 'right-0 top-16', r: 9 },
+                ]
+            ).map((p) => (
+              <motion.div key={p.src} className={`absolute ${p.cls}`} animate={{ rotate: p.r }} transition={{ type: 'spring', stiffness: 80 }}>
+                <PhotoCard src={p.src} alt={p.alt} caption={p.c} pos={p.pos} />
+              </motion.div>
+            ))}
+            <div aria-hidden="true" className={`absolute -bottom-2 left-4 rotate-[-6deg] px-4 py-2 rounded-xl border-2 border-line font-display font-extrabold text-lg shadow-hard-sm animate-wobble ${pro ? 'bg-mint text-ink' : 'bg-pop text-white'}`}>
+              {pro ? 'Your logo here ✓' : 'Say cheese! 📸'}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Christmas Parties', 'Corporate']} className="bg-sun text-ink" />
+
+      {/* BOOTHS */}
+      <section className="px-4 sm:px-6 py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <SectionHeading eyebrow="The line-up" title="Five ways to get everyone in the picture" subtitle="Every booth comes with professional studio lighting, personalised overlays, friendly setup and collection, and an online gallery." />
+          </Reveal>
+          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s, i) => (
+              <Reveal key={s.slug} delay={i * 0.06}><BoothCard s={s} i={i} /></Reveal>
+            ))}
+            <Reveal delay={0.3}>
+              <Link to="/contact" className="h-full min-h-[240px] flex flex-col justify-center items-start gap-3 rounded-3xl border-2 border-dashed border-line p-8 hover:bg-card transition-colors">
+                <Icon name="MessageCircle" size={36} />
+                <h3 className="font-display font-extrabold text-2xl">Not sure which?</h3>
+                <p className="text-paper/70">Tell us about your event and we’ll point you to the right one.</p>
+                <span className="font-display font-bold inline-flex items-center gap-2">Ask us <Icon name="ArrowRight" size={16} /></span>
               </Link>
-            ))}
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 6. How it works */}
-      <section className="py-20 px-4 sm:px-6 bg-midnight/30">
+      {/* TWO SIDES */}
+      <section className="px-4 sm:px-6 pb-24">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="How It Works"
-            title="Six steps from enquiry to gallery"
-            subtitle="A simple, transparent process that takes the stress out of booking and running your booth."
-          />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {processSteps.map((step) => (
-              <div key={step.step} className="relative rounded-2xl glass p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-gradient-to-br from-electric to-violet text-white font-display font-bold">
-                    {step.step}
-                  </span>
-                  <div className="grid place-items-center w-9 h-9 rounded-lg glass text-cyan">
-                    <Icon name={step.icon} size={18} />
-                  </div>
-                </div>
-                <h3 className="font-display font-semibold text-lg text-ice mb-2">{step.title}</h3>
-                <p className="text-sm text-silver/70 leading-relaxed">{step.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Gallery preview */}
-      <section className="py-20 px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Gallery"
-            title="Moments we have captured"
-            subtitle="A glimpse of the fun — every event is unique, but the smiles are always the same."
-          />
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {galleryImages.slice(0, 8).map((img) => (
-              <div key={img.src} className="relative rounded-xl overflow-hidden group aspect-square neon-edge">
-                <img src={img.src} alt={img.alt} loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <span className="absolute bottom-2 left-2 text-xs px-2 py-1 rounded-md glass-strong text-ice">
-                  {img.category}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Link to="/gallery" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-ice font-semibold hover:border-cyan/40 transition-colors">
-              View full gallery <ArrowRight size={17} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 8. Testimonials */}
-      <section className="py-20 px-4 sm:px-6 bg-midnight/30">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Testimonials"
-            title="Loved by hosts and guests alike"
-            subtitle={`${site.rating} stars from ${site.reviewCount} verified reviews across ${site.eventsHosted}+ events.`}
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure key={t.name} className="rounded-2xl glass p-6 flex flex-col">
-                <Quote size={28} className="text-violet/60 mb-4" />
-                <blockquote className="text-sm text-silver/80 leading-relaxed flex-1">“{t.text}”</blockquote>
-                <div className="flex mt-4 mb-3" aria-hidden>
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={14} className="fill-magenta text-magenta" />
+          <Reveal>
+            <SectionHeading eyebrow="Two sides of SpinPix" title="Pure fun. Properly professional." align="center" subtitle="The same friendly team and the same great kit, tuned to the occasion." />
+          </Reveal>
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
+            <Reveal>
+              <div className="h-full rounded-[2rem] border-2 border-line bg-pop text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
+                <span className="absolute -right-6 -top-6 text-[8rem] opacity-90 rotate-12" aria-hidden="true">🎉</span>
+                <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">Celebrations</p>
+                <h3 className="mt-2 font-display font-extrabold text-3xl sm:text-4xl">Weddings, parties, proms & more</h3>
+                <p className="mt-4 text-white/90 max-w-md">Props, personalised overlays and the kind of laughs you’ll still be talking about at the next family do.</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {eventTypes.filter((e) => e.slug !== 'corporate').map((e) => (
+                    <Link key={e.slug} to={`/${e.slug}`} className="inline-flex items-center gap-2 bg-paper text-ink border-2 border-line rounded-full px-4 py-2 font-display font-bold hover:bg-sun transition-colors">
+                      <span aria-hidden="true">{e.emoji}</span> {e.name}
+                    </Link>
                   ))}
                 </div>
-                <figcaption className="flex items-center gap-3 pt-3 border-t border-white/10">
-                  <div className="grid place-items-center w-10 h-10 rounded-full bg-gradient-to-br from-electric to-violet text-white font-display font-bold text-sm">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-ice">{t.name}</p>
-                    <p className="text-xs text-silver/60">{t.role}</p>
-                  </div>
-                </figcaption>
-              </figure>
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="h-full rounded-[2rem] border-2 border-line bg-navy text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
+                <div className="absolute inset-0 grid-lines" aria-hidden="true" />
+                <div className="relative">
+                  <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">Corporate</p>
+                  <h3 className="mt-2 font-display font-extrabold text-3xl sm:text-4xl">Brand activations, minus the cringe</h3>
+                  <ul className="mt-5 space-y-3 text-white/85">
+                    {['Bespoke branded overlays', '360 video with your branding', 'Instant digital sharing and online gallery', 'Clear communication from enquiry to collection'].map((t) => (
+                      <li key={t} className="flex items-start gap-3"><span className="mt-0.5 grid place-items-center w-5 h-5 rounded-full bg-mint text-ink shrink-0"><Icon name="Check" size={13} /></span>{t}</li>
+                    ))}
+                  </ul>
+                  <Link to="/corporate" className="btn btn-sun mt-8">Corporate hire <Icon name="ArrowRight" size={18} /></Link>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* REAL EVENTS */}
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <SectionHeading eyebrow="Real events" title="Spotted at a party near you" />
+              <Link to="/gallery" className="btn btn-ghost">See the gallery <Icon name="ArrowRight" size={18} /></Link>
+            </div>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {gallery.slice(0, 4).map((p, i) => (
+              <Reveal key={p.src} delay={i * 0.05}>
+                <img src={p.src} alt={p.alt} loading="lazy" className={`w-full aspect-[3/4] object-cover rounded-3xl border-2 border-line shadow-hard-sm ${i % 2 ? 'md:translate-y-6' : ''}`} />
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 9. CTA */}
-      <CTABand />
-
-      {/* 10. Service area / contact strip */}
-      <section className="py-16 px-4 sm:px-6">
-        <div className="mx-auto max-w-5xl rounded-2xl glass p-8 sm:p-10 grid gap-8 lg:grid-cols-2 items-center">
-          <div>
-            <h2 className="font-display font-bold text-2xl sm:text-3xl text-ice mb-3">{site.serviceArea}</h2>
-            <p className="text-silver/70 leading-relaxed mb-4">
-              Based in Sheffield, we travel to venues across England, Scotland and Wales.
-              Free delivery within 25 miles; transparent travel costs beyond.
-            </p>
-            <p className="text-sm text-silver/60">{site.hours}</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <a href={site.phoneHref} className="flex items-center justify-between px-5 py-4 rounded-xl glass hover:border-cyan/40 transition-colors">
-              <span className="text-ice font-semibold">Call us</span>
-              <span className="text-cyan">{site.phone}</span>
-            </a>
-            <a href={site.emailHref} className="flex items-center justify-between px-5 py-4 rounded-xl glass hover:border-cyan/40 transition-colors">
-              <span className="text-ice font-semibold">Email us</span>
-              <span className="text-cyan">{site.email}</span>
-            </a>
-            <Link to="/contact" className="flex items-center justify-between px-5 py-4 rounded-xl bg-gradient-to-r from-electric to-violet text-white font-semibold">
-              <span>Get a quote</span>
-              <ArrowRight size={18} />
-            </Link>
+      {/* HOW IT WORKS */}
+      <section className="bg-card border-y-2 border-line px-4 sm:px-6 py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl">
+          <Reveal><SectionHeading dark eyebrow="How it works" title="Easy for you. Even easier for your guests." /></Reveal>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {steps.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.07}>
+                <div className="relative h-full rounded-3xl border-2 border-paper/20 p-7 hover:border-sun transition-colors">
+                  <span className="font-display font-extrabold text-6xl text-sun/90 leading-none">{s.n}</span>
+                  <h3 className="mt-5 font-display font-bold text-xl">{s.title}</h3>
+                  <p className="mt-2 text-paper/70">{s.text}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* FAMILY */}
+      <section className="px-4 sm:px-6 py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl grid gap-10 md:grid-cols-[auto_1fr] items-center">
+          <Reveal>
+            <img src="/logo.jpg" alt="SpinPix UK logo: disco ball, photo booth and 360 platform" width={320} height={320} className="w-64 sm:w-80 rounded-[2rem] border-2 border-pop neon-box animate-floaty mx-auto" />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <SectionHeading eyebrow="Family-run" title="Real people, not a faceless hire company." />
+            <p className="mt-5 text-lg text-paper/70 leading-relaxed">{site.description} We’re based in {site.base} and travel across the UK, and whoever you speak to at the start is who looks after your event.</p>
+            <Link to="/about" className="btn btn-ink mt-7">Meet SpinPix <Icon name="ArrowRight" size={18} /></Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <Reviews />
+      <CTABand />
     </>
   );
 }

@@ -1,26 +1,18 @@
 import {
-  Camera, Sparkles, Video, Monitor, Smartphone, PhoneCall,
-  Heart, Users, Gift, Clock, Music, Palette, Zap, Cake,
-  Building2, BarChart3, Share2, ShieldCheck, Star, GraduationCap,
-  Truck, UserCheck, Images, MessageCircle, FileText, CalendarCheck,
-  PartyPopper, ChevronDown, Menu, X, ArrowRight, ArrowLeft, Check,
-  Phone, Mail, MapPin, Instagram, Facebook, Quote, Play, Pause,
-  Volume2, VolumeX, Send, Loader2, AlertCircle, Plus, Minus,
+  Camera, Sparkles, Video, Monitor, Smartphone, Heart, Users, Clock, Zap, Cake, Building2, Share2,
+  ShieldCheck, Star, GraduationCap, Truck, UserCheck, Images, MessageCircle, PartyPopper, ChevronDown,
+  Menu, X, ArrowRight, ArrowLeft, Check, Phone, Mail, MapPin, Instagram, Facebook, Send, Loader2,
+  AlertCircle, Palette, Briefcase, Wand2, Gift, Plus, Minus,
 } from 'lucide-react';
 
-const icons: Record<string, React.ComponentType<{ className?: string; size?: number | string }>> = {
-  Camera, Sparkles, Video, Monitor, Smartphone, PhoneCall,
-  Heart, Users, Gift, Clock, Music, Palette, Zap, Cake,
-  Building2, BarChart3, Share2, ShieldCheck, Star, GraduationCap,
-  Truck, UserCheck, Images, MessageCircle, FileText, CalendarCheck,
-  PartyPopper, ChevronDown, Menu, X, ArrowRight, ArrowLeft, Check,
-  Phone, Mail, MapPin, Instagram, Facebook, Quote, Play, Pause,
-  Volume2, VolumeX, Send, Loader2, AlertCircle, Plus, Minus,
+const icons = {
+  Camera, Sparkles, Video, Monitor, Smartphone, Heart, Users, Clock, Zap, Cake, Building2, Share2,
+  ShieldCheck, Star, GraduationCap, Truck, UserCheck, Images, MessageCircle, PartyPopper, ChevronDown,
+  Menu, X, ArrowRight, ArrowLeft, Check, Phone, Mail, MapPin, Instagram, Facebook, Send, Loader2,
+  AlertCircle, Palette, Briefcase, Wand2, Gift, Plus, Minus,
 };
 
-export type IconName = keyof typeof icons;
-
-export function Icon({ name, className, size }: { name: string; className?: string; size?: number | string }) {
-  const Cmp = icons[name] ?? Sparkles;
-  return <Cmp className={className} size={size} />;
+export function Icon({ name, className, size }: { name: string; className?: string; size?: number }) {
+  const Cmp = (icons as Record<string, typeof Camera>)[name] ?? Sparkles;
+  return <Cmp className={className} size={size} aria-hidden="true" />;
 }

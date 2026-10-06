@@ -1,113 +1,126 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { Icon } from '@/components/Icon';
 import SectionHeading from '@/components/SectionHeading';
 import CTABand from '@/components/CTABand';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import { Icon } from '@/components/Icon';
-import { stats, testimonials } from '@/data/content';
+import Reveal from '@/components/Reveal';
+import { services } from '@/data/services';
+import { steps } from '@/data/content';
+import Reviews from '@/components/Reviews';
 import { site } from '@/config/site';
 import { useSEO } from '@/lib/useSEO';
 
-export default function About() {
-  useSEO('About', 'Meet the SpinPix team — six years of bringing photo booth fun to events across the UK.');
+const included = [
+  'Unlimited visits during the hire period',
+  'Instant digital sharing (AirDrop, WhatsApp, email & QR code where available)',
+  'Professional studio lighting',
+  'Large selection of fun props',
+  'Personalised photo overlays',
+  'Online gallery after the event',
+  'Friendly setup and collection',
+  'Print packages on selected booths',
+];
 
+const why = [
+  { icon: 'Sparkles', title: 'Premium equipment', text: 'Modern, high-quality kit maintained to professional standards.' },
+  { icon: 'ShieldCheck', title: 'Reliable & fully insured', text: 'Dependable service from first enquiry to the event itself.' },
+  { icon: 'Palette', title: 'Personalised designs', text: 'A custom photo overlay designed for every booking.' },
+  { icon: 'Heart', title: 'No hidden costs', text: 'Competitive pricing, friendly and approachable people.' },
+];
+
+const occasions = ['Weddings', 'Birthdays', 'Corporate events', 'Proms', 'School leavers’ parties', 'Charity events', 'Christmas parties', 'Every special occasion'];
+
+export default function About() {
+  useSEO('About us', 'SpinPix UK is a family-run photo booth hire company based in West Yorkshire, covering the whole of the UK.');
   return (
     <>
-      <section className="relative pt-32 pb-16 px-4 sm:px-6 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-violet/15 blur-[120px]" />
-        <div className="relative mx-auto max-w-7xl">
-          <Breadcrumbs items={[{ label: 'About' }]} />
-          <div className="mt-8 grid gap-12 lg:grid-cols-2 items-center">
-            <div>
-              <SectionHeading
-                eyebrow="About SpinPix"
-                title="We make events unforgettable"
-                subtitle="What started as a single booth at a friend's wedding has grown into one of the UK's most-loved photo booth hire companies."
-                align="left"
-              />
-              <p className="mt-6 text-silver/70 leading-relaxed">
-                We are a small, passionate team based in Sheffield, serving the whole of the UK.
-                Every booking is personal — we treat your event like it is our own, because
-                most of us started as event planners, DJs and wedding photographers before
-                picking up the booth bug.
-              </p>
-              <p className="mt-4 text-silver/70 leading-relaxed">
-                We believe a great booth is more than a camera in a box. It is the lighting,
-                the attendant's energy, the props, the overlay, the music — all working
-                together to create moments people want to share.
-              </p>
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-2 mt-8 px-7 py-3.5 rounded-xl bg-gradient-to-r from-electric to-violet text-white font-semibold hover:shadow-[0_0_30px_rgba(22,139,255,0.5)] transition-all"
-              >
-                Work with us <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <img src="https://images.pexels.com/photos/3754253/pexels-photo-3754253.jpeg?auto=compress&cs=tinysrgb&w=500" alt="SpinPix booth in action" loading="lazy" className="rounded-2xl neon-edge aspect-[3/4] object-cover" />
-                <img src="https://images.pexels.com/photos/4946525/pexels-photo-4946525.jpeg?auto=compress&cs=tinysrgb&w=500" alt="360 video booth setup" loading="lazy" className="rounded-2xl neon-edge aspect-[3/4] object-cover mt-8" />
-              </div>
-            </div>
+      <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16 sm:py-24 overflow-hidden">
+        <div className="mx-auto max-w-7xl grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
+          <div>
+            <SectionHeading eyebrow="About SpinPix UK" title="Family-run. Fun-first. Seriously reliable." subtitle={site.description} />
+            <p className="mt-5 text-lg text-paper/70 max-w-2xl leading-relaxed">Our aim is simple: a fun, stress-free experience that creates lasting memories. We pride ourselves on reliable service, premium equipment and exceptional customer service from the initial enquiry through to the event itself.</p>
+          </div>
+          <div className="hidden md:flex justify-center">
+            <img src="/logo.jpg" alt="SpinPix UK logo" width={320} height={320} className="w-72 rounded-[2rem] border-2 border-pop neon-box -rotate-3" />
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 px-4 sm:px-6 bg-midnight/30">
-        <div className="mx-auto max-w-5xl grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="grid place-items-center w-11 h-11 rounded-xl bg-gradient-to-br from-electric/20 to-violet/20 text-cyan mx-auto mb-3">
-                <Icon name={s.icon} size={20} />
-              </div>
-              <p className="font-display font-bold text-2xl sm:text-3xl text-ice">{s.value}</p>
-              <p className="text-xs sm:text-sm text-silver/60 mt-1">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-20 px-4 sm:px-6">
+      <section className="px-4 sm:px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Our Values" title="What we stand for" />
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {[
-              { icon: 'Heart', title: 'Personal, always', text: 'No call centres, no scripts. You speak to the same person from enquiry to gallery.' },
-              { icon: 'ShieldCheck', title: 'Reliable by design', text: 'Redundant equipment, backup attendants and a 100% on-time arrival record.' },
-              { icon: 'Sparkles', title: 'Quality you can see', text: 'Studio-grade lighting, premium prints and overlays designed in-house.' },
-            ].map((v) => (
-              <div key={v.title} className="rounded-2xl glass p-6">
-                <div className="grid place-items-center w-12 h-12 rounded-xl bg-gradient-to-br from-electric/20 to-violet/20 text-cyan mb-4">
-                  <Icon name={v.icon} size={22} />
+          <Reveal><SectionHeading eyebrow="Why SpinPix" title="Why choose us?" /></Reveal>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {why.map((v, i) => (
+              <Reveal key={v.title} delay={i * 0.06}>
+                <div className="h-full bg-card border-2 border-line rounded-3xl p-6 shadow-hard-sm">
+                  <span className="grid place-items-center w-12 h-12 rounded-2xl border-2 border-line bg-sun text-ink"><Icon name={v.icon} size={22} /></span>
+                  <h3 className="mt-4 font-display font-bold text-xl">{v.title}</h3>
+                  <p className="mt-1.5 text-paper/70">{v.text}</p>
                 </div>
-                <h3 className="font-display font-semibold text-lg text-ice mb-2">{v.title}</h3>
-                <p className="text-sm text-silver/70 leading-relaxed">{v.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-4 sm:px-6 bg-midnight/30">
+      <section className="border-y-2 border-line bg-card px-4 sm:px-6 py-20">
+        <div className="mx-auto max-w-7xl grid gap-12 lg:grid-cols-2">
+          <Reveal>
+            <SectionHeading eyebrow="Every hire can include" title="Everything you need to get snapping" />
+            <ul className="mt-8 space-y-3">
+              {included.map((t) => (
+                <li key={t} className="flex items-start gap-3"><span className="mt-0.5 grid place-items-center w-5 h-5 rounded-full bg-pop text-white shrink-0"><Icon name="Check" size={13} /></span>{t}</li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <SectionHeading eyebrow="Our booths" title="Five to choose from" />
+            <ul className="mt-8 grid gap-3">
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link to={`/booths#${s.slug}`} className="flex items-center gap-4 rounded-2xl border-2 border-line px-5 py-4 hover:border-pop transition-colors">
+                    <Icon name={s.icon} size={24} />
+                    <span><span className="block font-display font-bold">{s.name}</span><span className="text-sm text-paper/60">{s.tagline}</span></span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-paper/70">Bespoke branding is available for corporate events, and digital-only and print packages are available depending on the booth.</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="px-4 sm:px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Testimonials" title="What our clients say" />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {testimonials.slice(0, 3).map((t) => (
-              <figure key={t.name} className="rounded-2xl glass p-6 flex flex-col">
-                <blockquote className="text-sm text-silver/80 leading-relaxed flex-1">“{t.text}”</blockquote>
-                <figcaption className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-sm font-semibold text-ice">{t.name}</p>
-                  <p className="text-xs text-silver/60">{t.role}</p>
-                </figcaption>
-              </figure>
+          <Reveal><SectionHeading eyebrow="Booking" title="How booking works" subtitle="A £50 booking fee secures your date, and the balance is due the day before the event." /></Reveal>
+          <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {steps.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.06}>
+                <li className="h-full list-none rounded-3xl border-2 border-line bg-card p-6">
+                  <span className="font-display font-extrabold text-5xl text-pop neon">{s.n}</span>
+                  <h3 className="mt-3 font-display font-bold text-lg">{s.title}</h3>
+                  <p className="mt-1.5 text-paper/70 text-sm">{s.text}</p>
+                </li>
+              </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
+      <section className="px-4 sm:px-6 pb-20">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl">Suitable for</h2>
+          <div className="mt-6 flex flex-wrap justify-center gap-2.5">
+            {occasions.map((o) => <span key={o} className="rounded-full border-2 border-line bg-card px-4 py-2 font-display font-bold">{o}</span>)}
+          </div>
+          <p className="mt-10 text-lg text-paper/70">See what we’re up to on social.</p>
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
+            <a href={site.instagram} target="_blank" rel="noreferrer" className="btn btn-ghost"><Icon name="Instagram" size={18} /> Instagram</a>
+            <a href={site.facebook} target="_blank" rel="noreferrer" className="btn btn-ghost"><Icon name="Facebook" size={18} /> Facebook</a>
+            <a href={site.google} target="_blank" rel="noreferrer" className="btn btn-ghost"><Icon name="Star" size={18} /> Google profile</a>
+          </div>
+        </div>
+      </section>
+      <Reviews />
       <CTABand />
     </>
   );
