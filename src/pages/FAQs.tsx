@@ -18,7 +18,7 @@ export default function FAQs() {
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
-              <div key={f.q} className={`rounded-2xl border-2 border-line bg-white ${isOpen ? 'shadow-hard-sm' : ''}`}>
+              <div key={f.q} className={`rounded-2xl border-2 border-line bg-card ${isOpen ? 'shadow-hard-sm' : ''}`}>
                 <h3>
                   <button className="w-full flex items-center justify-between gap-4 text-left p-5 sm:p-6" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : i)}>
                     <span>

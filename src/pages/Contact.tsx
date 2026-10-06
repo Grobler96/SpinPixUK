@@ -6,8 +6,8 @@ import { services } from '@/data/services';
 import { site } from '@/config/site';
 import { useSEO } from '@/lib/useSEO';
 
-// Public access key from web3forms.com; it only lets the form email the address it was created for.
-const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+// Access key from web3forms.com (set in src/config/site.ts, or override with VITE_WEB3FORMS_KEY).
+const accessKey = (import.meta.env.VITE_WEB3FORMS_KEY as string | undefined) || site.formKey;
 
 const eventOptions = ['Weddings', 'Parties', 'Corporate', 'Proms', 'Other'];
 
