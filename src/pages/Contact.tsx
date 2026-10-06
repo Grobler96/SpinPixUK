@@ -45,10 +45,10 @@ export default function Contact() {
   if (status === 'sent') {
     return (
       <section className="px-4 py-24">
-        <div className="mx-auto max-w-lg text-center bg-white border-2 border-ink rounded-[2rem] shadow-hard p-10">
-          <div className="mx-auto grid place-items-center w-20 h-20 rounded-full bg-mint border-2 border-ink text-4xl" aria-hidden="true">🎉</div>
+        <div className="mx-auto max-w-lg text-center bg-card border-2 border-line rounded-[2rem] shadow-hard p-10">
+          <div className="mx-auto grid place-items-center w-20 h-20 rounded-full bg-mint border-2 border-line text-4xl" aria-hidden="true">🎉</div>
           <h1 className="mt-6 font-display font-extrabold text-4xl">Thanks{name ? `, ${name}` : ''}!</h1>
-          <p className="mt-3 text-ink/70 text-lg">Your enquiry is in. We’ll be in touch soon. Need us sooner? Call {site.phone}.</p>
+          <p className="mt-3 text-paper/70 text-lg">Your enquiry is in. We’ll be in touch soon. Need us sooner? Call {site.phone}.</p>
           <Link to="/" className="btn btn-ink mt-8">Back home</Link>
         </div>
       </section>
@@ -59,13 +59,13 @@ export default function Contact() {
 
   return (
     <>
-      <section className="border-b-2 border-ink bg-cream px-4 sm:px-6 py-16">
+      <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16">
         <div className="mx-auto max-w-7xl"><SectionHeading eyebrow="Get a quote" title="Let’s plan something fun" subtitle="Tell us about your event and we’ll come back to you with options and a quote." /></div>
       </section>
 
       <section className="px-4 sm:px-6 py-16">
         <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-[1fr_340px]">
-          <form onSubmit={submit} className="bg-white border-2 border-ink rounded-[2rem] shadow-hard p-6 sm:p-10 grid gap-5 sm:grid-cols-2">
+          <form onSubmit={submit} className="bg-card border-2 border-line rounded-[2rem] shadow-hard p-6 sm:p-10 grid gap-5 sm:grid-cols-2">
             <div><L id="name">Your name *</L><input id="name" name="name" required className="field" autoComplete="name" /></div>
             <div><L id="email">Email *</L><input id="email" name="email" type="email" required className="field" autoComplete="email" /></div>
             <div><L id="phone">Phone</L><input id="phone" name="phone" type="tel" className="field" autoComplete="tel" /></div>
@@ -101,7 +101,7 @@ export default function Contact() {
           </form>
 
           <aside className="space-y-5">
-            <div className="rounded-3xl bg-ink text-paper p-7">
+            <div className="rounded-3xl bg-card border-2 border-pop shadow-hard-sm p-7">
               <h2 className="font-display font-extrabold text-2xl">Prefer to chat?</h2>
               <ul className="mt-5 space-y-4">
                 <li><a href={site.phoneHref} className="flex items-center gap-3 hover:text-sun"><Icon name="Phone" size={20} />{site.phone}</a></li>
@@ -109,9 +109,9 @@ export default function Contact() {
                 <li className="flex items-start gap-3"><Icon name="MapPin" size={20} className="mt-0.5 shrink-0" />Based in {site.base}. {site.coverage}.</li>
               </ul>
             </div>
-            <div className="rounded-3xl bg-sun border-2 border-ink p-7">
-              <p className="font-display font-bold">Corporate booking?</p>
-              <p className="mt-1 text-ink/75">Mention your brand or campaign and we’ll talk bespoke overlays.</p>
+            <div className="rounded-3xl bg-sun border-2 border-line text-ink p-7">
+              <p className="font-display font-bold text-ink">Corporate booking?</p>
+              <p className="mt-1 text-ink/80">Mention your brand or campaign and we’ll talk bespoke overlays.</p>
             </div>
           </aside>
         </div>

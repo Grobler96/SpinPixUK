@@ -16,7 +16,7 @@ export default function Corporate() {
     <div className="bg-navy text-white">
       <section className="relative overflow-hidden border-b border-white/15">
         <div className="absolute inset-0 grid-lines" aria-hidden="true" />
-        <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-volt/40 blur-3xl" aria-hidden="true" />
+        <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-pop/40 blur-3xl" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-28">
           <p className="inline-flex items-center gap-2 font-display font-bold text-sm uppercase tracking-[0.2em] text-sun"><Icon name="Briefcase" size={16} /> Corporate & brand events</p>
           <h1 className="mt-5 font-display font-extrabold text-5xl sm:text-7xl leading-[0.98] max-w-4xl">{ev.headline}</h1>
@@ -33,7 +33,7 @@ export default function Corporate() {
           {ev.points.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.06}>
               <div className="h-full rounded-2xl border border-white/15 bg-white/5 p-6 hover:border-sun/60 transition-colors">
-                <span className="grid place-items-center w-11 h-11 rounded-xl bg-volt"><Icon name={p.icon} size={22} /></span>
+                <span className="grid place-items-center w-11 h-11 rounded-xl bg-pop"><Icon name={p.icon} size={22} /></span>
                 <h3 className="mt-4 font-display font-bold text-xl">{p.title}</h3>
                 <p className="mt-1.5 text-white/70">{p.text}</p>
               </div>
@@ -77,7 +77,7 @@ export default function Corporate() {
       </section>
 
       <section className="px-4 sm:px-6 pb-20">
-        <div className="mx-auto max-w-6xl rounded-3xl bg-volt p-8 sm:p-12 flex flex-wrap items-center justify-between gap-6">
+        <div className="mx-auto max-w-6xl rounded-3xl bg-pop p-8 sm:p-12 flex flex-wrap items-center justify-between gap-6">
           <div>
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl">Let’s talk about your event.</h2>
             <p className="mt-2 text-white/85">Send us the date, venue and what you’d like to achieve.</p>

@@ -8,7 +8,7 @@ function Page({ title, desc, children }: { title: string; desc: string; children
     <article className="px-4 sm:px-6 py-16">
       <div className="mx-auto max-w-3xl">
         <h1 className="font-display font-extrabold text-4xl sm:text-5xl">{title}</h1>
-        <div className="mt-8 space-y-5 text-ink/80 leading-relaxed [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-2xl [&_h2]:text-ink [&_h2]:pt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-1">
+        <div className="mt-8 space-y-5 text-paper/80 leading-relaxed [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-2xl [&_h2]:text-ink [&_h2]:pt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-1">
           {children}
         </div>
       </div>

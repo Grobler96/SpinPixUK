@@ -24,7 +24,7 @@ export default function EventPage() {
 
   return (
     <>
-      <section className={`${t.bg} ${t.text} border-b-2 border-ink overflow-hidden`}>
+      <section className={`${t.bg} ${t.text} border-b-2 border-line overflow-hidden`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
           <div>
             <p className="font-display font-bold uppercase tracking-[0.2em] text-sm opacity-80">{ev.name} <span aria-hidden="true">{ev.emoji}</span></p>
@@ -42,10 +42,10 @@ export default function EventPage() {
         <div className="mx-auto max-w-7xl grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {ev.points.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.06}>
-              <div className="h-full bg-white border-2 border-ink rounded-3xl p-6 shadow-hard-sm">
-                <span className={`grid place-items-center w-12 h-12 rounded-2xl border-2 border-ink ${t.bg} ${t.text}`}><Icon name={p.icon} size={22} /></span>
+              <div className="h-full bg-card border-2 border-line rounded-3xl p-6 shadow-hard-sm">
+                <span className={`grid place-items-center w-12 h-12 rounded-2xl border-2 border-line ${t.bg} ${t.text}`}><Icon name={p.icon} size={22} /></span>
                 <h3 className="mt-4 font-display font-bold text-xl">{p.title}</h3>
-                <p className="mt-1.5 text-ink/70">{p.text}</p>
+                <p className="mt-1.5 text-paper/70">{p.text}</p>
               </div>
             </Reveal>
           ))}

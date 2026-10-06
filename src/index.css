@@ -4,29 +4,32 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { @apply bg-paper text-ink font-body antialiased; }
+  body { @apply bg-ink text-paper font-body antialiased; }
   h1, h2, h3, h4 { @apply font-display tracking-tight; }
+  select option { background: #130B22; color: #F7F1FF; }
   ::selection { background: #FF3D81; color: #fff; }
-  :focus-visible { outline: 3px solid #2F5BFF; outline-offset: 3px; border-radius: 6px; }
+  :focus-visible { outline: 3px solid #4DE1FF; outline-offset: 3px; border-radius: 6px; }
 }
 
 @layer components {
+  .neon { text-shadow: 0 0 18px rgba(255,46,147,0.75), 0 0 42px rgba(255,46,147,0.45); }
+  .neon-box { box-shadow: 0 0 0 2px #FF2E93, 0 0 28px rgba(255,46,147,0.55); }
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-display font-bold text-base
-      border-2 border-ink transition-transform duration-150 select-none;
+      border-2 border-line transition-transform duration-150 select-none;
   }
   .btn:hover { transform: translate(-2px, -2px); }
   .btn:active { transform: translate(2px, 2px); }
   .btn-pop { @apply bg-pop text-white shadow-hard-sm hover:shadow-hard; }
   .btn-sun { @apply bg-sun text-ink shadow-hard-sm hover:shadow-hard; }
-  .btn-ink { @apply bg-ink text-paper shadow-hard-sm hover:shadow-hard; }
-  .btn-ghost { @apply bg-transparent text-ink hover:bg-ink hover:text-paper; }
+  .btn-ink { @apply bg-paper text-ink shadow-hard-sm hover:shadow-hard; }
+  .btn-ghost { @apply bg-transparent text-paper !border-paper/40 hover:bg-paper hover:text-ink; }
   .field {
-    @apply w-full rounded-xl border-2 border-ink/20 bg-white px-4 py-3 text-ink placeholder:text-ink/40
-      focus:border-ink focus:outline-none transition-colors;
+    @apply w-full rounded-xl border-2 border-line bg-ink px-4 py-3 text-paper placeholder:text-paper/40
+      focus:border-pop focus:outline-none transition-colors;
   }
   .grain {
-    background-image: radial-gradient(rgba(23,18,58,0.09) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
     background-size: 18px 18px;
   }
   .grid-lines {

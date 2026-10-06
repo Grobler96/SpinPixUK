@@ -42,12 +42,12 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className={`relative overflow-hidden border-b-2 border-ink transition-colors duration-500 ${pro ? 'bg-navy text-white' : 'bg-paper'}`}>
+      <section className={`relative overflow-hidden border-b-2 border-line transition-colors duration-500 ${pro ? 'bg-navy text-white' : 'bg-ink'}`}>
         <div className={`absolute inset-0 transition-opacity duration-500 ${pro ? 'grid-lines opacity-100' : 'grain opacity-100'}`} aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-16 sm:pt-16 sm:pb-24 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
           <div>
             {/* audience switch */}
-            <div role="tablist" aria-label="Who are you booking for?" className={`inline-flex p-1 rounded-full border-2 ${pro ? 'border-white/40 bg-white/10' : 'border-ink bg-white'}`}>
+            <div role="tablist" aria-label="Who are you booking for?" className={`inline-flex p-1 rounded-full border-2 ${pro ? 'border-white/40 bg-white/10' : 'border-line bg-card'}`}>
               {([['fun', 'Celebrations', 'PartyPopper'], ['pro', 'Business', 'Briefcase']] as const).map(([m, label, icon]) => (
                 <button
                   key={m}
@@ -55,7 +55,7 @@ export default function Home() {
                   aria-selected={mode === m}
                   onClick={() => setMode(m)}
                   className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-display font-bold text-sm transition-colors ${
-                    mode === m ? (pro ? 'bg-sun text-ink' : 'bg-ink text-paper') : pro ? 'text-white/70' : 'text-ink/60'
+                    mode === m ? (pro ? 'bg-sun text-ink' : 'bg-paper text-ink') : pro ? 'text-white/70' : 'text-paper/60'
                   }`}
                 >
                   <Icon name={icon} size={16} /> {label}
@@ -76,12 +76,12 @@ export default function Home() {
                   {h.title.map((l, i) => (
                     <span key={l} className="block">
                       {i === h.title.length - 1 ? (
-                        <span className={`inline-block px-3 -mx-1 rounded-xl ${pro ? 'bg-volt text-white' : 'bg-sun -rotate-1'}`}>{l}</span>
+                        <span className={`inline-block px-3 -mx-1 rounded-xl ${pro ? 'bg-pop text-white neon-box' : 'bg-pop text-white neon-box -rotate-1'}`}>{l}</span>
                       ) : l}
                     </span>
                   ))}
                 </h1>
-                <p className={`mt-7 text-lg sm:text-xl max-w-xl leading-relaxed ${pro ? 'text-white/75' : 'text-ink/75'}`}>{h.text}</p>
+                <p className={`mt-7 text-lg sm:text-xl max-w-xl leading-relaxed ${pro ? 'text-white/75' : 'text-paper/75'}`}>{h.text}</p>
                 <div className="mt-9 flex flex-wrap gap-3">
                   <Link to={h.to} className={`btn ${pro ? 'btn-sun' : 'btn-pop'}`}>{h.cta} <Icon name="ArrowRight" size={18} /></Link>
                   <Link to="/booths" className={`btn ${pro ? 'border-white text-white hover:bg-white hover:text-navy' : 'btn-ghost'}`}>Meet the booths</Link>
@@ -101,14 +101,14 @@ export default function Home() {
             <motion.div className="absolute right-0 top-14" animate={{ rotate: pro ? 7 : 11 }} transition={{ type: 'spring', stiffness: 80 }}>
               <PhotoStrip tones={pro ? ['grape', 'volt', 'sun'] : ['mint', 'pop', 'volt']} faces={pro ? ['📈', '💡', '🎯'] : ['👑', '🦄', '🍾']} caption={pro ? 'Brand day' : 'Prom night'} />
             </motion.div>
-            <div className={`absolute -bottom-2 left-4 rotate-[-6deg] px-4 py-2 rounded-xl border-2 border-ink font-display font-extrabold text-lg shadow-hard-sm animate-wobble ${pro ? 'bg-mint text-ink' : 'bg-pop text-white'}`}>
+            <div className={`absolute -bottom-2 left-4 rotate-[-6deg] px-4 py-2 rounded-xl border-2 border-line font-display font-extrabold text-lg shadow-hard-sm animate-wobble ${pro ? 'bg-mint text-ink' : 'bg-pop text-white'}`}>
               {pro ? 'Your logo here ✓' : 'Say cheese! 📸'}
             </div>
           </div>
         </div>
       </section>
 
-      <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Corporate']} className="bg-sun" />
+      <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Corporate']} className="bg-sun text-ink" />
 
       {/* BOOTHS */}
       <section className="px-4 sm:px-6 py-20 sm:py-28">
@@ -121,10 +121,10 @@ export default function Home() {
               <Reveal key={s.slug} delay={i * 0.06}><BoothCard s={s} i={i} /></Reveal>
             ))}
             <Reveal delay={0.3}>
-              <Link to="/contact" className="h-full min-h-[240px] flex flex-col justify-center items-start gap-3 rounded-3xl border-2 border-dashed border-ink p-8 hover:bg-cream transition-colors">
+              <Link to="/contact" className="h-full min-h-[240px] flex flex-col justify-center items-start gap-3 rounded-3xl border-2 border-dashed border-line p-8 hover:bg-card transition-colors">
                 <Icon name="MessageCircle" size={36} />
                 <h3 className="font-display font-extrabold text-2xl">Not sure which?</h3>
-                <p className="text-ink/70">Tell us about your event and we’ll point you to the right one.</p>
+                <p className="text-paper/70">Tell us about your event and we’ll point you to the right one.</p>
                 <span className="font-display font-bold inline-flex items-center gap-2">Ask us <Icon name="ArrowRight" size={16} /></span>
               </Link>
             </Reveal>
@@ -140,14 +140,14 @@ export default function Home() {
           </Reveal>
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             <Reveal>
-              <div className="h-full rounded-[2rem] border-2 border-ink bg-pop text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
+              <div className="h-full rounded-[2rem] border-2 border-line bg-pop text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
                 <span className="absolute -right-6 -top-6 text-[8rem] opacity-90 rotate-12" aria-hidden="true">🎉</span>
                 <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">Celebrations</p>
                 <h3 className="mt-2 font-display font-extrabold text-3xl sm:text-4xl">Weddings, parties & proms</h3>
                 <p className="mt-4 text-white/90 max-w-md">Props, personalised overlays and the kind of laughs you’ll still be talking about at the next family do.</p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {eventTypes.filter((e) => e.slug !== 'corporate').map((e) => (
-                    <Link key={e.slug} to={`/${e.slug}`} className="inline-flex items-center gap-2 bg-paper text-ink border-2 border-ink rounded-full px-4 py-2 font-display font-bold hover:bg-sun transition-colors">
+                    <Link key={e.slug} to={`/${e.slug}`} className="inline-flex items-center gap-2 bg-paper text-ink border-2 border-line rounded-full px-4 py-2 font-display font-bold hover:bg-sun transition-colors">
                       <span aria-hidden="true">{e.emoji}</span> {e.name}
                     </Link>
                   ))}
@@ -155,7 +155,7 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="h-full rounded-[2rem] border-2 border-ink bg-navy text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
+              <div className="h-full rounded-[2rem] border-2 border-line bg-navy text-white p-8 sm:p-10 shadow-hard relative overflow-hidden">
                 <div className="absolute inset-0 grid-lines" aria-hidden="true" />
                 <div className="relative">
                   <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">Corporate</p>
@@ -174,7 +174,7 @@ export default function Home() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-ink text-paper px-4 sm:px-6 py-20 sm:py-28">
+      <section className="bg-card border-y-2 border-line px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl">
           <Reveal><SectionHeading dark eyebrow="How it works" title="Easy for you. Even easier for your guests." /></Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -195,14 +195,11 @@ export default function Home() {
       <section className="px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-5xl grid gap-10 md:grid-cols-[auto_1fr] items-center">
           <Reveal>
-            <div className="relative w-56 h-56 mx-auto">
-              <div className="absolute inset-0 rounded-full bg-sun border-2 border-ink" />
-              <div className="absolute inset-6 rounded-full bg-pop border-2 border-ink grid place-items-center text-7xl animate-floaty" aria-hidden="true">👋</div>
-            </div>
+            <img src="/logo.jpg" alt="SpinPix UK logo: disco ball, photo booth and 360 platform" width={320} height={320} className="w-64 sm:w-80 rounded-[2rem] border-2 border-pop neon-box animate-floaty mx-auto" />
           </Reveal>
           <Reveal delay={0.1}>
             <SectionHeading eyebrow="Family-run" title="Real people, not a faceless hire company." />
-            <p className="mt-5 text-lg text-ink/70 leading-relaxed">{site.description} We’re based in {site.base} and travel across the UK, and whoever you speak to at the start is who looks after your event.</p>
+            <p className="mt-5 text-lg text-paper/70 leading-relaxed">{site.description} We’re based in {site.base} and travel across the UK, and whoever you speak to at the start is who looks after your event.</p>
             <Link to="/about" className="btn btn-ink mt-7">Meet SpinPix <Icon name="ArrowRight" size={18} /></Link>
           </Reveal>
         </div>
