@@ -8,6 +8,7 @@ import { steps } from '@/data/content';
 import Reviews from '@/components/Reviews';
 import { site } from '@/config/site';
 import { useSEO } from '@/lib/useSEO';
+import { asset } from '@/lib/asset';
 
 const included = [
   'Unlimited visits during the hire period',
@@ -40,7 +41,7 @@ export default function About() {
             <p className="mt-5 text-lg text-paper/70 max-w-2xl leading-relaxed">Our aim is simple: a fun, stress-free experience that creates lasting memories. We pride ourselves on reliable service, premium equipment and exceptional customer service from the initial enquiry through to the event itself.</p>
           </div>
           <div className="hidden md:flex justify-center">
-            <img src="/logo.jpg" alt="SpinPix UK logo" width={320} height={320} className="w-72 rounded-[2rem] border-2 border-pop neon-box -rotate-3" />
+            <img src={asset('logo.jpg')} alt="SpinPix UK logo" width={320} height={320} className="w-72 rounded-[2rem] border-2 border-pop neon-box -rotate-3" />
           </div>
         </div>
       </section>

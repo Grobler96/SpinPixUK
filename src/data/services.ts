@@ -1,3 +1,4 @@
+import { asset } from '@/lib/asset';
 export type Tone = 'pop' | 'sun' | 'volt' | 'mint' | 'grape';
 
 export type Service = {
@@ -32,7 +33,7 @@ export const services: Service[] = [
     capacity: 'Groups of 1–6',
     tone: 'volt',
     icon: 'Camera',
-    photos: [{ src: '/photos/selfie-pod.jpg', alt: 'SpinPix UK selfie pod with ring light at an evening event' }],
+    photos: [{ src: asset('photos/selfie-pod.jpg'), alt: 'SpinPix UK selfie pod with ring light at an evening event' }],
     popular: true,
   },
   {
@@ -52,7 +53,7 @@ export const services: Service[] = [
     capacity: 'Groups of 1–6',
     tone: 'mint',
     icon: 'Smartphone',
-    photos: [{ src: '/photos/letterbox-pod.jpg', alt: 'Letterbox selfie pod with a personalised Mr & Mrs wedding screen' }],
+    photos: [{ src: asset('photos/letterbox-pod.jpg'), alt: 'Letterbox selfie pod with a personalised Mr & Mrs wedding screen' }],
   },
   {
     slug: 'magic-mirror-photo-booth',
@@ -72,9 +73,9 @@ export const services: Service[] = [
     tone: 'pop',
     icon: 'Sparkles',
     photos: [
-      { src: '/photos/magic-mirror-prom.jpg', alt: 'Magic mirror with a personalised school prom screen' },
-      { src: '/photos/magic-mirror-guests.jpg', alt: 'Guests in props posing at the magic mirror' },
-      { src: '/photos/magic-mirror-party.jpg', alt: 'Guests laughing with props in front of the magic mirror' },
+      { src: asset('photos/magic-mirror-prom.jpg'), alt: 'Magic mirror with a personalised school prom screen' },
+      { src: asset('photos/magic-mirror-guests.jpg'), alt: 'Guests in props posing at the magic mirror' },
+      { src: asset('photos/magic-mirror-party.jpg'), alt: 'Guests laughing with props in front of the magic mirror' },
     ],
   },
   {
@@ -95,9 +96,9 @@ export const services: Service[] = [
     tone: 'sun',
     icon: 'Monitor',
     photos: [
-      { src: '/photos/booth-camper.jpg', alt: 'Enclosed photo booth with a camper van skin' },
-      { src: '/photos/booth-silver.jpg', alt: 'Enclosed photo booth with a silver skin and light-up PHOTOS sign' },
-      { src: '/photos/booth-wood.jpg', alt: 'Enclosed photo booth with a rustic wood skin' },
+      { src: asset('photos/booth-camper.jpg'), alt: 'Enclosed photo booth with a camper van skin' },
+      { src: asset('photos/booth-silver.jpg'), alt: 'Enclosed photo booth with a silver skin and light-up PHOTOS sign' },
+      { src: asset('photos/booth-wood.jpg'), alt: 'Enclosed photo booth with a rustic wood skin' },
     ],
   },
   {
@@ -117,7 +118,7 @@ export const services: Service[] = [
     capacity: 'Small groups per spin',
     tone: 'grape',
     icon: 'Video',
-    photos: [{ src: '/photos/video-360.jpg', alt: 'Guests posing with inflatable guitars on the 360 video platform' }],
+    photos: [{ src: asset('photos/video-360.jpg'), alt: 'Guests posing with inflatable guitars on the 360 video platform' }],
     popular: true,
   },
 ];
