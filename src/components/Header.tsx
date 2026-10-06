@@ -45,7 +45,7 @@ export default function Header() {
       </div>
 
       {open && (
-        <nav className="xl:hidden border-t-2 border-line bg-paper px-4 py-4 grid gap-1" aria-label="Mobile">
+        <nav className="xl:hidden border-t-2 border-line bg-ink px-4 py-4 grid gap-1" aria-label="Mobile">
           {nav.map((n) => (
             <NavLink
               key={n.path}
