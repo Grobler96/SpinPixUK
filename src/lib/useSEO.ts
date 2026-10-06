@@ -1,25 +1,21 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const DEFAULT_TITLE = 'SpinPix UK — Capture the moment. Spin the fun.';
+const DEFAULT_TITLE = 'SpinPix UK | Photo booth & 360 video booth hire';
 const DEFAULT_DESC =
-  'Premium interactive photo booth and 360° video booth experiences for weddings, parties, corporate events and proms across the UK.';
+  'Family-run photo booth, selfie pod, magic mirror and 360 video booth hire for weddings, parties, proms and corporate events across the UK.';
 
 export function useSEO(title?: string, description?: string) {
-  const location = useLocation();
+  const { pathname } = useLocation();
   useEffect(() => {
-    if (title) document.title = `${title} · SpinPix UK`;
-    else document.title = DEFAULT_TITLE;
-
-    const desc = description || DEFAULT_DESC;
+    document.title = title ? `${title} | SpinPix UK` : DEFAULT_TITLE;
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
       meta.setAttribute('name', 'description');
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', desc);
-
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-  }, [title, description, location.pathname]);
+    meta.setAttribute('content', description || DEFAULT_DESC);
+    window.scrollTo(0, 0);
+  }, [title, description, pathname]);
 }

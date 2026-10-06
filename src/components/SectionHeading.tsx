@@ -1,25 +1,15 @@
-type Props = {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  align?: 'left' | 'center';
-  className?: string;
-};
-
-export default function SectionHeading({ eyebrow, title, subtitle, align = 'center', className = '' }: Props) {
+export default function SectionHeading({
+  eyebrow, title, subtitle, align = 'left', dark = false,
+}: { eyebrow?: string; title: string; subtitle?: string; align?: 'left' | 'center'; dark?: boolean }) {
   return (
-    <div className={`${align === 'center' ? 'text-center mx-auto' : 'text-left'} max-w-3xl ${className}`}>
+    <div className={`max-w-2xl ${align === 'center' ? 'mx-auto text-center' : ''}`}>
       {eyebrow && (
-        <span className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-cyan mb-3">
+        <p className={`inline-block font-display font-bold text-xs uppercase tracking-[0.2em] mb-3 px-3 py-1 rounded-full border-2 ${dark ? 'border-white/30 text-sun' : 'border-ink bg-sun'}`}>
           {eyebrow}
-        </span>
+        </p>
       )}
-      <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ice leading-tight">
-        {title}
-      </h2>
-      {subtitle && (
-        <p className="mt-4 text-lg text-silver/70 leading-relaxed">{subtitle}</p>
-      )}
+      <h2 className="font-display font-extrabold text-4xl sm:text-5xl leading-[1.02]">{title}</h2>
+      {subtitle && <p className={`mt-4 text-lg leading-relaxed ${dark ? 'text-white/75' : 'text-ink/70'}`}>{subtitle}</p>}
     </div>
   );
 }
