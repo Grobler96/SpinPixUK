@@ -80,7 +80,7 @@ export default function Contact() {
   return (
     <>
       <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16">
-        <div className="mx-auto max-w-7xl"><SectionHeading eyebrow="Get a quote" title="Let’s plan something fun" subtitle="Tell us about your event and we’ll come back to you with options and a quote." /></div>
+        <div className="mx-auto max-w-7xl"><SectionHeading as="h1" eyebrow="Get a quote" title="Let’s plan something fun" subtitle="Tell us about your event and we’ll come back to you with options and a quote." /></div>
       </section>
 
       <section className="px-4 sm:px-6 py-16">

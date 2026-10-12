@@ -15,7 +15,7 @@ export default function Gallery() {
     <>
       <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Gallery" title="Our booths at real events" subtitle="Weddings, parties, proms and more. See even more on our Instagram and Facebook." />
+          <SectionHeading as="h1" eyebrow="Gallery" title="Our booths at real events" subtitle="Weddings, parties, proms and more. See even more on our Instagram and Facebook." />
           <div className="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filter photos by booth">
             {(['All', ...photoTypes] as const).map((t) => (
               <button
