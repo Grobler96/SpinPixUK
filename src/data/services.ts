@@ -92,7 +92,7 @@ export const services: Service[] = [
       'Print packages available',
     ],
     duration: 'Flexible hire',
-    capacity: 'Groups of 1–6',
+    capacity: 'Groups of 1–4',
     tone: 'sun',
     icon: 'Monitor',
     photos: [
