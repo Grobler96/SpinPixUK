@@ -9,7 +9,7 @@ export const faqs: FAQ[] = [
   {
     category: 'Booking',
     q: 'How do I secure my date?',
-    a: 'Once you’re happy with your quote, a £50 booking fee secures the date. The remaining balance is due the day before the event.',
+    a: 'Once you’re happy with your quote, a £50 booking fee secures the date (corporate bookings require a 50% deposit instead). The remaining balance is due the day before the event.',
   },
   {
     category: 'Booking',
@@ -60,7 +60,7 @@ export const faqs: FAQ[] = [
 
 export const steps = [
   { n: '1', title: 'Get in touch', text: 'Website, Facebook, Instagram, email or phone. We chat about your event, venue and date and recommend the right booth.', icon: 'MessageCircle' },
-  { n: '2', title: 'Quote & booking fee', text: 'You get a quotation, and once you’re happy a £50 booking fee secures your date.', icon: 'Camera' },
+  { n: '2', title: 'Quote & booking fee', text: 'You get a quotation, and once you’re happy a £50 booking fee secures your date (50% deposit for corporate bookings).', icon: 'Camera' },
   { n: '3', title: 'We design your overlay', text: 'We create a personalised photo overlay to match your theme or brand.', icon: 'Palette' },
   { n: '4', title: 'We set up & you enjoy', text: 'We arrive in plenty of time to set up and test everything, with an attendant on hand where applicable.', icon: 'Truck' },
   { n: '5', title: 'Your online gallery', text: 'After the event you get access to your gallery to download and enjoy every photo.', icon: 'Images' },

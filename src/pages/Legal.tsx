@@ -40,7 +40,7 @@ export function Terms() {
     <Page title="Terms" desc="Terms for booking SpinPix UK photo booth hire.">
       <p>These are the main terms for hiring from {site.name}. Full details are confirmed in your quote and booking confirmation.</p>
       <h2>Bookings and payment</h2>
-      <p>Once you’re happy with your quotation, a £50 booking fee secures your date. The remaining balance is due the day before the event.</p>
+      <p>Once you’re happy with your quotation, a £50 booking fee secures your date. For corporate bookings, a 50% deposit is required instead of the £50 booking fee. The remaining balance is due the day before the event.</p>
       <h2>Personalised overlays</h2>
       <p>Before the event we design a personalised photo overlay to match your theme.</p>
       <h2>Questions</h2>

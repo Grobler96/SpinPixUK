@@ -92,7 +92,7 @@ export default function About() {
 
       <section className="px-4 sm:px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <Reveal><SectionHeading eyebrow="Booking" title="How booking works" subtitle="A £50 booking fee secures your date, and the balance is due the day before the event." /></Reveal>
+          <Reveal><SectionHeading eyebrow="Booking" title="How booking works" subtitle="A £50 booking fee secures your date (corporate bookings: 50% deposit), and the balance is due the day before the event." /></Reveal>
           <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.06}>

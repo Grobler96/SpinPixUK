@@ -81,6 +81,7 @@ export default function Corporate() {
           <div>
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl">Let’s talk about your event.</h2>
             <p className="mt-2 text-white/85">Send us the date, venue and what you’d like to achieve.</p>
+            <p className="mt-2 text-sm text-white/85">Corporate bookings are secured with a 50% deposit, with the balance due the day before the event.</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/contact?event=corporate" className="btn btn-sun">Get a quote</Link>
