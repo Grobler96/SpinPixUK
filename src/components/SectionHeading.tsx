@@ -1,6 +1,6 @@
 export default function SectionHeading({
-  eyebrow, title, subtitle, align = 'left', dark = false,
-}: { eyebrow?: string; title: string; subtitle?: string; align?: 'left' | 'center'; dark?: boolean }) {
+  eyebrow, title, subtitle, align = 'left', dark = false, as: Tag = 'h2',
+}: { eyebrow?: string; title: string; subtitle?: string; align?: 'left' | 'center'; dark?: boolean; as?: 'h1' | 'h2' }) {
   return (
     <div className={`max-w-2xl ${align === 'center' ? 'mx-auto text-center' : ''}`}>
       {eyebrow && (
@@ -8,7 +8,7 @@ export default function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="font-display font-extrabold text-4xl sm:text-5xl leading-[1.02]">{title}</h2>
+      <Tag className="font-display font-extrabold text-4xl sm:text-5xl leading-[1.02]">{title}</Tag>
       {subtitle && <p className={`mt-4 text-lg leading-relaxed ${dark ? 'text-white/75' : 'text-paper/70'}`}>{subtitle}</p>}
     </div>
   );

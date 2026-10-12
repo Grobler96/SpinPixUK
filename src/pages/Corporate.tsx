@@ -10,7 +10,7 @@ import { useSEO } from '@/lib/useSEO';
 const useCases = ['Product launches', 'Conferences & exhibitions', 'Award nights', 'Staff parties & Christmas events', 'Brand activations', 'Open days & community events'];
 
 export default function Corporate() {
-  useSEO('Corporate photo booth & 360 hire', 'Branded photo booths and 360 video booths for corporate events across the UK. Bespoke overlays, instant sharing and professional setup.');
+  useSEO();
   const ev = getEvent('corporate')!;
   return (
     <div className="bg-navy text-white">

@@ -31,13 +31,13 @@ const why = [
 const occasions = ['Weddings', 'Birthdays', 'Corporate events', 'Proms', 'School leavers’ parties', 'Charity events', 'Christmas parties', 'Every special occasion'];
 
 export default function About() {
-  useSEO('About us', 'SpinPix UK is a family-run photo booth hire company based in West Yorkshire, covering the whole of the UK.');
+  useSEO();
   return (
     <>
       <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16 sm:py-24 overflow-hidden">
         <div className="mx-auto max-w-7xl grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
           <div>
-            <SectionHeading eyebrow="About SpinPix UK" title="Family-run. Fun-first. Seriously reliable." subtitle={site.description} />
+            <SectionHeading as="h1" eyebrow="About SpinPix UK" title="Family-run. Fun-first. Seriously reliable." subtitle={site.description} />
             <p className="mt-5 text-lg text-paper/70 max-w-2xl leading-relaxed">Our aim is simple: a fun, stress-free experience that creates lasting memories. We pride ourselves on reliable service, premium equipment and exceptional customer service from the initial enquiry through to the event itself.</p>
           </div>
           <div className="hidden md:flex justify-center">

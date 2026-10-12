@@ -1,0 +1,64 @@
+{
+  "/": {
+    "title": "SpinPix UK | Photo booth & 360 video booth hire",
+    "description": "Family-run photo booth, selfie pod, magic mirror and 360 video booth hire for weddings, parties, proms and corporate events across the UK."
+  },
+  "/booths": {
+    "title": "Our booths | SpinPix UK",
+    "description": "Selfie Pod, Letterbox Selfie Pod, Magic Mirror, Enclosed Photo Booth and 360 Video Booth hire across the UK."
+  },
+  "/weddings": {
+    "title": "Wedding photo booth hire | SpinPix UK",
+    "description": "Magic mirrors, selfie pods and photo booths for weddings across the UK, with personalised overlays, instant sharing and an online gallery."
+  },
+  "/parties": {
+    "title": "Party photo booth hire | SpinPix UK",
+    "description": "Photo booth, 360 video booth and magic mirror hire for birthdays, Christmas parties and every celebration across the UK."
+  },
+  "/proms": {
+    "title": "Prom and leavers' party photo booth hire | SpinPix UK",
+    "description": "360 video booths and magic mirrors for school proms and leavers' parties across the UK, with overlays personalised to your school."
+  },
+  "/corporate": {
+    "title": "Corporate photo booth & 360 hire | SpinPix UK",
+    "description": "Branded photo booths and 360 video booths for corporate events across the UK. Bespoke overlays, instant sharing and professional setup."
+  },
+  "/gallery": {
+    "title": "Gallery | SpinPix UK",
+    "description": "Photos of SpinPix UK photo booths, magic mirrors, selfie pods and 360 video booths at real events."
+  },
+  "/about": {
+    "title": "About us | SpinPix UK",
+    "description": "SpinPix UK is a family-run photo booth hire company based in West Yorkshire, covering the whole of the UK."
+  },
+  "/faqs": {
+    "title": "FAQs | SpinPix UK",
+    "description": "Answers to common questions about SpinPix UK photo booth hire: booking, setup, sharing and coverage."
+  },
+  "/contact": {
+    "title": "Get a quote | SpinPix UK",
+    "description": "Tell SpinPix UK about your event and get a quote for photo booth, selfie pod or 360 video booth hire."
+  },
+  "/thank-you": {
+    "title": "Thank you | SpinPix UK",
+    "description": "Your enquiry has been sent to SpinPix UK.",
+    "noindex": true
+  },
+  "/privacy": {
+    "title": "Privacy Policy | SpinPix UK",
+    "description": "How SpinPix UK collects, uses and protects your personal data."
+  },
+  "/terms": {
+    "title": "Terms | SpinPix UK",
+    "description": "Terms for booking SpinPix UK photo booth hire."
+  },
+  "/accessibility": {
+    "title": "Accessibility | SpinPix UK",
+    "description": "SpinPix UK accessibility statement."
+  },
+  "404": {
+    "title": "Page not found | SpinPix UK",
+    "description": "Sorry, that page doesn't exist. Head back to the SpinPix UK home page.",
+    "noindex": true
+  }
+}

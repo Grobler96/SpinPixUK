@@ -6,12 +6,12 @@ import { faqs } from '@/data/content';
 import { useSEO } from '@/lib/useSEO';
 
 export default function FAQs() {
-  useSEO('FAQs', 'Answers to common questions about SpinPix UK photo booth hire: booking, setup, sharing and coverage.');
+  useSEO();
   const [open, setOpen] = useState<number | null>(0);
   return (
     <>
       <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16">
-        <div className="mx-auto max-w-7xl"><SectionHeading eyebrow="FAQs" title="Good questions" subtitle="Can’t see yours? Call or email us and we’ll answer it." /></div>
+        <div className="mx-auto max-w-7xl"><SectionHeading as="h1" eyebrow="FAQs" title="Good questions" subtitle="Can’t see yours? Call or email us and we’ll answer it." /></div>
       </section>
       <section className="px-4 sm:px-6 py-16">
         <div className="mx-auto max-w-3xl space-y-4">

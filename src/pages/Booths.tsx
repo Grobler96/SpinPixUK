@@ -7,12 +7,12 @@ import { services, toneClasses } from '@/data/services';
 import { useSEO } from '@/lib/useSEO';
 
 export default function Booths() {
-  useSEO('Our booths', 'Selfie Pod, Letterbox Selfie Pod, Magic Mirror, Enclosed Photo Booth and 360 Video Booth hire across the UK.');
+  useSEO();
   return (
     <>
       <section className="px-4 sm:px-6 pt-14 pb-10 border-b-2 border-line bg-card">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Booths" title="Pick your photo-making machine" subtitle="Each one includes professional studio lighting, personalised overlays, friendly setup and collection, and an online gallery after your event." />
+          <SectionHeading as="h1" eyebrow="Booths" title="Pick your photo-making machine" subtitle="Each one includes professional studio lighting, personalised overlays, friendly setup and collection, and an online gallery after your event." />
         </div>
       </section>
 

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSEO } from '@/lib/useSEO';
 
 export default function NotFound() {
-  useSEO('Page not found');
+  useSEO(true);
   return (
     <section className="px-4 py-28 text-center">
       <p className="text-8xl" aria-hidden="true">🫥</p>

@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import SectionHeading from '@/components/SectionHeading';
 import { services } from '@/data/services';
@@ -12,19 +12,18 @@ const accessKey = (import.meta.env.VITE_WEB3FORMS_KEY as string | undefined) || 
 const eventOptions = ['Weddings', 'Parties', 'Corporate', 'Proms', 'Other'];
 
 export default function Contact() {
-  useSEO('Get a quote', 'Tell SpinPix UK about your event and get a quote for photo booth, selfie pod or 360 video booth hire.');
+  useSEO();
   const [params] = useSearchParams();
   const preEvent = eventOptions.find((e) => e.toLowerCase() === params.get('event')) ?? '';
   const preBooth = services.find((s) => s.slug === params.get('booth'))?.name ?? '';
 
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [name, setName] = useState('');
+  const navigate = useNavigate();
+  const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const v = (k: string) => ((f.get(k) as string) || '').trim();
-    setName(v('name').split(' ')[0]);
 
     const details: Record<string, string> = {
       Phone: v('phone'), 'Event type': v('event_type'),
@@ -56,31 +55,19 @@ export default function Contact() {
         }),
       });
       const json = await res.json();
-      setStatus(json.success ? 'sent' : 'error');
+      if (json.success) navigate('/thank-you', { state: { name: v('name').split(' ')[0] } });
+      else setStatus('error');
     } catch {
       setStatus('error');
     }
   };
-
-  if (status === 'sent') {
-    return (
-      <section className="px-4 py-24">
-        <div className="mx-auto max-w-lg text-center bg-card border-2 border-line rounded-[2rem] shadow-hard p-10">
-          <div className="mx-auto grid place-items-center w-20 h-20 rounded-full bg-mint border-2 border-line text-4xl" aria-hidden="true">🎉</div>
-          <h1 className="mt-6 font-display font-extrabold text-4xl">Thanks{name ? `, ${name}` : ''}!</h1>
-          <p className="mt-3 text-paper/70 text-lg">Your enquiry is in. We’ll be in touch soon. Need us sooner? Call {site.phone}.</p>
-          <Link to="/" className="btn btn-ink mt-8">Back home</Link>
-        </div>
-      </section>
-    );
-  }
 
   const L = ({ id, children }: { id: string; children: string }) => <label htmlFor={id} className="block font-display font-bold text-sm mb-1.5">{children}</label>;
 
   return (
     <>
       <section className="border-b-2 border-line bg-card px-4 sm:px-6 py-16">
-        <div className="mx-auto max-w-7xl"><SectionHeading eyebrow="Get a quote" title="Let’s plan something fun" subtitle="Tell us about your event and we’ll come back to you with options and a quote." /></div>
+        <div className="mx-auto max-w-7xl"><SectionHeading as="h1" eyebrow="Get a quote" title="Let’s plan something fun" subtitle="Tell us about your event and we’ll come back to you with options and a quote." /></div>
       </section>
 
       <section className="px-4 sm:px-6 py-16">
