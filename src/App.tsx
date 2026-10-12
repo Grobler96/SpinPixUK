@@ -9,6 +9,7 @@ import About from '@/pages/About';
 import FAQs from '@/pages/FAQs';
 import Contact from '@/pages/Contact';
 import { Privacy, Terms, Accessibility } from '@/pages/Legal';
+import ThankYou from '@/pages/ThankYou';
 import NotFound from '@/pages/NotFound';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/accessibility" element={<Accessibility />} />

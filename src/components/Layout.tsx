@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import StickyCTA from './StickyCTA';
 
 export default function Layout() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col pb-[4.5rem] md:pb-0">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:rounded-full">
         Skip to content
       </a>
@@ -13,6 +14,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <StickyCTA />
     </div>
   );
 }

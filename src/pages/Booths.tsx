@@ -7,7 +7,7 @@ import { services, toneClasses } from '@/data/services';
 import { useSEO } from '@/lib/useSEO';
 
 export default function Booths() {
-  useSEO('Our booths', 'Selfie Pod, Letterbox Selfie Pod, Magic Mirror, Enclosed Photo Booth and 360 Video Booth hire across the UK.');
+  useSEO();
   return (
     <>
       <section className="px-4 sm:px-6 pt-14 pb-10 border-b-2 border-line bg-card">

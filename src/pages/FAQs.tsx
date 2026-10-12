@@ -6,7 +6,7 @@ import { faqs } from '@/data/content';
 import { useSEO } from '@/lib/useSEO';
 
 export default function FAQs() {
-  useSEO('FAQs', 'Answers to common questions about SpinPix UK photo booth hire: booking, setup, sharing and coverage.');
+  useSEO();
   const [open, setOpen] = useState<number | null>(0);
   return (
     <>

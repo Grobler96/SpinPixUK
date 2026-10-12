@@ -10,9 +10,9 @@ import { getService, toneClasses } from '@/data/services';
 import { useSEO } from '@/lib/useSEO';
 
 export default function EventPage() {
-  const slug = useLocation().pathname.slice(1);
+  const slug = useLocation().pathname.replace(/^\/+|\/+$/g, '');
   const ev = getEvent(slug);
-  useSEO(ev ? `${ev.name} photo booth hire` : undefined, ev?.blurb.slice(0, 155));
+  useSEO();
   if (!ev || ev.slug === 'corporate') return <Navigate to="/" replace />;
   const t = toneClasses[ev.tone];
 

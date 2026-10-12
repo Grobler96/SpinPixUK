@@ -7,7 +7,7 @@ import { site } from '@/config/site';
 import { useSEO } from '@/lib/useSEO';
 
 export default function Gallery() {
-  useSEO('Gallery', 'Photos of SpinPix UK photo booths, magic mirrors, selfie pods and 360 video booths at real events.');
+  useSEO();
   const [filter, setFilter] = useState<PhotoType | 'All'>('All');
   const shown = filter === 'All' ? gallery : gallery.filter((p) => p.type === filter);
 

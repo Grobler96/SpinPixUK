@@ -1,21 +1,35 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import seo from '@/data/seo.json';
 
-const DEFAULT_TITLE = 'SpinPix UK | Photo booth & 360 video booth hire';
-const DEFAULT_DESC =
-  'Family-run photo booth, selfie pod, magic mirror and 360 video booth hire for weddings, parties, proms and corporate events across the UK.';
+type Meta = { title: string; description: string; noindex?: boolean };
+const table = seo as Record<string, Meta>;
 
-export function useSEO(title?: string, description?: string) {
+function setMeta(selector: string, attr: string, value: string, create: () => HTMLElement) {
+  let el = document.head.querySelector(selector);
+  if (!el) {
+    el = create();
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, value);
+}
+
+/** Sets the page title and description for the current route from src/data/seo.json (also used at build time). */
+export function useSEO(notFound = false) {
   const { pathname } = useLocation();
   useEffect(() => {
-    document.title = title ? `${title} | SpinPix UK` : DEFAULT_TITLE;
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', description || DEFAULT_DESC);
+    const key = notFound ? '404' : pathname.replace(/\/+$/, '') || '/';
+    const meta = table[key] ?? table['404'];
+    document.title = meta.title;
+    const mk = (tag: string, attrs: Record<string, string>) => () => {
+      const e = document.createElement(tag);
+      Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+      return e;
+    };
+    setMeta('meta[name="description"]', 'content', meta.description, mk('meta', { name: 'description' }));
+    setMeta('meta[property="og:title"]', 'content', meta.title, mk('meta', { property: 'og:title' }));
+    setMeta('meta[property="og:description"]', 'content', meta.description, mk('meta', { property: 'og:description' }));
+    setMeta('meta[name="robots"]', 'content', meta.noindex ? 'noindex' : 'index,follow', mk('meta', { name: 'robots' }));
     window.scrollTo(0, 0);
-  }, [title, description, pathname]);
+  }, [pathname, notFound]);
 }
