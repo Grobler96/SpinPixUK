@@ -51,7 +51,13 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-paper/15 py-6 text-center text-sm text-paper/55">
-        © {new Date().getFullYear()} {site.name}. All rights reserved.
+        <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+        <p className="mt-1.5">
+          Website by{' '}
+          <a href={site.credit.url} target="_blank" rel="noopener" className="font-bold text-paper/80 underline decoration-pop decoration-2 underline-offset-4 hover:text-pop">
+            {site.credit.name}
+          </a>
+        </p>
       </div>
     </footer>
   );
