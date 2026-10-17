@@ -16,6 +16,7 @@ export default function Contact() {
   const [params] = useSearchParams();
   const preEvent = eventOptions.find((e) => e.toLowerCase() === params.get('event')) ?? '';
   const preBooth = services.find((s) => s.slug === params.get('booth'))?.name ?? '';
+  const preDate = /^\d{4}-\d{2}-\d{2}$/.test(params.get('date') ?? '') ? params.get('date')! : '';
 
   const navigate = useNavigate();
   const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
@@ -84,7 +85,7 @@ export default function Contact() {
                 {eventOptions.map((o) => <option key={o}>{o}</option>)}
               </select>
             </div>
-            <div><L id="event_date">Event date</L><input id="event_date" name="event_date" type="date" className="field" /></div>
+            <div><L id="event_date">Event date</L><input id="event_date" name="event_date" type="date" defaultValue={preDate} className="field" /></div>
             <div><L id="venue">Venue / town</L><input id="venue" name="venue" className="field" /></div>
             <div>
               <L id="service">Booth you’re interested in</L>
