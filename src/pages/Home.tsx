@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { Icon } from '@/components/Icon';
 import Marquee from '@/components/Marquee';
 import PhotoCard from '@/components/PhotoCard';
-import Reviews from '@/components/Reviews';
 import SectionHeading from '@/components/SectionHeading';
 import BoothCard from '@/components/BoothCard';
-import CTABand from '@/components/CTABand';
+import ScrollFilm from '@/components/ScrollFilm';
+import NeonText from '@/components/NeonText';
+import DiscoLights from '@/components/DiscoLights';
+import PhotoBooth from '@/components/PhotoBooth';
+import BoothMatch from '@/components/BoothMatch';
+import SpinRing from '@/components/SpinRing';
+import WashingLine from '@/components/WashingLine';
+import DateCTA from '@/components/DateCTA';
 import Reveal from '@/components/Reveal';
 import { services } from '@/data/services';
 import { eventTypes } from '@/data/events';
@@ -44,6 +50,12 @@ export default function Home() {
 
   return (
     <>
+      <DiscoLights />
+      <ScrollFilm count={FILM_FRAMES} frame={(i) => asset(`film/hero/${String(i + 1).padStart(3, '0')}.webp`)} length={3.2}
+        label="A mirrored disco ball turning above a dark party venue, light beams sweeping across the dance floor.">
+        {(p) => <FilmOverlay progress={p} />}
+      </ScrollFilm>
+
       {/* HERO */}
       <section className={`relative overflow-hidden border-b-2 border-line transition-colors duration-500 ${pro ? 'bg-navy text-white' : 'bg-ink'}`}>
         <div className={`absolute inset-0 transition-opacity duration-500 ${pro ? 'grid-lines opacity-100' : 'grain opacity-100'}`} aria-hidden="true" />
@@ -75,7 +87,7 @@ export default function Home() {
                 transition={{ duration: 0.25 }}
               >
                 <p className={`mt-8 font-display font-bold text-sm uppercase tracking-[0.2em] ${pro ? 'text-sun' : 'text-pop'}`}>{h.kicker}</p>
-                <h1 className="mt-3 font-display font-extrabold text-[2.9rem] sm:text-7xl lg:text-[5.4rem] leading-[0.95]">
+                <h2 className="mt-3 font-display font-extrabold text-[2.9rem] sm:text-7xl lg:text-[5.4rem] leading-[0.95]">
                   {h.title.map((l, i) => (
                     <span key={l} className="block">
                       {i === h.title.length - 1 ? (
@@ -83,7 +95,7 @@ export default function Home() {
                       ) : l}
                     </span>
                   ))}
-                </h1>
+                </h2>
                 <p className={`mt-7 text-lg sm:text-xl max-w-xl leading-relaxed ${pro ? 'text-white/75' : 'text-paper/75'}`}>{h.text}</p>
                 <div className="mt-9 flex flex-wrap gap-3">
                   <Link to={h.to} className={`btn ${pro ? 'btn-sun' : 'btn-pop'}`}>{h.cta} <Icon name="ArrowRight" size={18} /></Link>
@@ -120,6 +132,8 @@ export default function Home() {
 
       <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Christmas Parties', 'Corporate']} className="bg-sun text-ink" />
 
+      <PhotoBooth />
+
       {/* BOOTHS */}
       <section className="px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl">
@@ -141,6 +155,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <BoothMatch />
+
+      <SpinRing />
 
       {/* TWO SIDES */}
       <section className="px-4 sm:px-6 pb-24">
@@ -234,8 +252,38 @@ export default function Home() {
         </div>
       </section>
 
-      <Reviews />
-      <CTABand />
+      <WashingLine />
+      <DateCTA />
     </>
+  );
+}
+
+const FILM_FRAMES = 56;
+
+/** Words that appear over the opening film as you scroll. */
+function FilmOverlay({ progress }: { progress: MotionValue<number> }) {
+  const [one, setOne] = useState(false);
+  const [two, setTwo] = useState(false);
+  useMotionValueEvent(progress, 'change', (v) => { setOne(v > 0.12); setTwo(v > 0.45); });
+  const cue = useTransform(progress, [0, 0.08], [1, 0]);
+  const words = useTransform(progress, [0, 0.12, 0.88, 1], [0, 1, 1, 0.25]);
+  const end = useTransform(progress, [0.7, 0.85], [0, 1]);
+  const endY = useTransform(progress, [0.7, 0.85], [30, 0]);
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center pointer-events-none">
+      <h1 className="sr-only">SpinPix UK: photo booth, magic mirror and 360 video booth hire</h1>
+      <motion.p style={{ opacity: words }} className="font-display font-extrabold text-[2.15rem] min-[400px]:text-[2.5rem] sm:text-7xl lg:text-8xl leading-[0.95] tracking-tight" aria-hidden="true">
+        <NeonText text="Capture the moment." color="#2F7BFF" lit={one} />
+        <br />
+        <NeonText text="Spin the fun." color="#FF2E93" lit={two} />
+      </motion.p>
+      <motion.div style={{ opacity: end, y: endY }} className="mt-8 flex flex-wrap justify-center gap-3 pointer-events-auto">
+        <a href="#try-the-booth" className="btn btn-pop">Try the booth <Icon name="Camera" size={18} /></a>
+        <Link to="/contact" className="btn btn-ink">Check my date <Icon name="CalendarDays" size={18} /></Link>
+      </motion.div>
+      <motion.p style={{ opacity: cue }} className="absolute bottom-24 md:bottom-10 font-display font-bold uppercase tracking-[0.3em] text-xs text-white/80">
+        Scroll to drop the lights
+      </motion.p>
+    </div>
   );
 }

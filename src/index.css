@@ -12,6 +12,26 @@
 }
 
 @layer components {
+  /* neon tube lettering: dim glass until lit, then each letter flickers on */
+  .neon-tube { --neon: #FF2E93; display: inline-block; }
+  .neon-tube > span > span { display: inline-block; color: rgba(255,255,255,0.12); text-shadow: none; transition: color .2s; }
+  .neon-tube.is-lit > span > span {
+    color: #fff;
+    text-shadow: 0 0 3px #fff, 0 0 10px var(--neon), 0 0 24px var(--neon), 0 0 52px var(--neon), 0 0 90px var(--neon);
+    animation: neon-on 900ms steps(1, end) both;
+  }
+  @keyframes neon-on {
+    0% { color: rgba(255,255,255,0.12); text-shadow: none; }
+    10% { color: #fff; text-shadow: 0 0 10px var(--neon), 0 0 24px var(--neon); }
+    18% { color: rgba(255,255,255,0.12); text-shadow: none; }
+    32% { color: #fff; text-shadow: 0 0 10px var(--neon), 0 0 24px var(--neon); }
+    40% { color: rgba(255,255,255,0.2); text-shadow: none; }
+    100% { color: #fff; }
+  }
+  /* polaroids swaying on the washing line */
+  .sway { transform-origin: 50% -14px; animation: sway 5.5s ease-in-out infinite; }
+  @keyframes sway { 0%,100% { transform: rotate(var(--r0, -2deg)); } 50% { transform: rotate(var(--r1, 2deg)); } }
+
   .neon { text-shadow: 0 0 18px rgba(255,46,147,0.75), 0 0 42px rgba(255,46,147,0.45); }
   .neon-box { box-shadow: 0 0 0 2px #FF2E93, 0 0 28px rgba(255,46,147,0.55); }
   .btn {

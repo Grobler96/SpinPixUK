@@ -3,6 +3,7 @@ import {
   ShieldCheck, Star, GraduationCap, Truck, UserCheck, Images, MessageCircle, PartyPopper, ChevronDown,
   Menu, X, ArrowRight, ArrowLeft, Check, Phone, Mail, MapPin, Instagram, Facebook, Send, Loader2,
   AlertCircle, Palette, Briefcase, Wand2, Gift, Plus, Minus,
+  Download, RotateCcw, CalendarDays, Volume2, VolumeX, Upload, CameraOff, Shuffle, Disc3, Trash2, Hand,
 } from 'lucide-react';
 
 const icons = {
@@ -10,6 +11,7 @@ const icons = {
   ShieldCheck, Star, GraduationCap, Truck, UserCheck, Images, MessageCircle, PartyPopper, ChevronDown,
   Menu, X, ArrowRight, ArrowLeft, Check, Phone, Mail, MapPin, Instagram, Facebook, Send, Loader2,
   AlertCircle, Palette, Briefcase, Wand2, Gift, Plus, Minus,
+  Download, RotateCcw, CalendarDays, Volume2, VolumeX, Upload, CameraOff, Shuffle, Disc3, Trash2, Hand,
 };
 
 export function Icon({ name, className, size }: { name: string; className?: string; size?: number }) {
