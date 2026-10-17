@@ -28,6 +28,13 @@
     40% { color: rgba(255,255,255,0.2); text-shadow: none; }
     100% { color: #fff; }
   }
+  /* moving film grain over the scroll film */
+  .film-grain {
+    opacity: .09; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 0.6s steps(3) infinite;
+  }
+  @keyframes grain { 0% { transform: translate(0,0); } 33% { transform: translate(-3%,2%); } 66% { transform: translate(2%,-3%); } 100% { transform: translate(0,0); } }
   /* polaroids swaying on the washing line */
   .sway { transform-origin: 50% -14px; animation: sway 5.5s ease-in-out infinite; }
   @keyframes sway { 0%,100% { transform: rotate(var(--r0, -2deg)); } 50% { transform: rotate(var(--r1, 2deg)); } }
