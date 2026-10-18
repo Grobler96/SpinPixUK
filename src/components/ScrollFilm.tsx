@@ -134,6 +134,7 @@ export default function ScrollFilm({ clips, frameUrl, length = 3, label, childre
           className={`absolute inset-0 w-full h-full ${wide ? '' : 'md:left-1/2 md:-translate-x-1/2 md:w-auto md:aspect-[9/16] md:shadow-[0_0_120px_30px_rgba(139,61,255,0.35)]'}`}
         />
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[radial-gradient(120%_85%_at_50%_45%,transparent_45%,rgba(7,5,12,0.8))]" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[60%] pointer-events-none bg-gradient-to-t from-ink/85 via-ink/35 to-transparent" />
         <div aria-hidden="true" className="film-grain absolute inset-0 pointer-events-none" />
         {children?.(scrollYProgress)}
         <motion.div aria-hidden="true" style={{ height: bars }} className="absolute top-0 inset-x-0 bg-black z-10" />

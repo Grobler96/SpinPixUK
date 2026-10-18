@@ -52,8 +52,8 @@ export default function Home() {
   return (
     <>
       <DiscoLights />
-      <ScrollFilm clips={clips} frameUrl={frameUrl} length={Math.max(3.2, clips.length * 2.2)}
-        label="A night with SpinPix: a mirrored disco ball turning above a dark party venue, light beams sweeping across the dance floor.">
+      <ScrollFilm clips={clips} frameUrl={frameUrl} length={Math.max(3.2, clips.length * 1.8)}
+        label="A night with SpinPix: a mirrored disco ball above a dark venue, then the 360 platform lighting up, the classic booth, magic mirror, selfie pod and a 360 spin.">
         {(p) => <FilmOverlay progress={p} />}
       </ScrollFilm>
 
@@ -286,8 +286,8 @@ function FilmChapter({ c, progress }: { c: Chapter; progress: MotionValue<number
 /** Everything drawn over the opening film: chapters, scene counter, scroll cue and the final buttons. */
 function FilmOverlay({ progress }: { progress: MotionValue<number> }) {
   const cue = useTransform(progress, (v) => 1 - clamp01(v / 0.06));
-  const end = useTransform(progress, (v) => clamp01((v - 0.86) / 0.09));
-  const endY = useTransform(progress, (v) => 30 * (1 - clamp01((v - 0.86) / 0.09)));
+  const end = useTransform(progress, (v) => clamp01((v - 0.915) / 0.07));
+  const endY = useTransform(progress, (v) => 30 * (1 - clamp01((v - 0.915) / 0.07)));
   const [scene, setScene] = useState(1);
   useMotionValueEvent(progress, 'change', (v) => setScene(Math.min(clips.length, Math.floor(v * clips.length) + 1)));
   return (
