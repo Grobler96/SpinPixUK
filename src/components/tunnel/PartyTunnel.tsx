@@ -27,7 +27,7 @@ function Grid() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {tunnelPanels.map((p) => (
             <Link key={p.id} to={p.to} className="group rounded-3xl overflow-hidden border-2 border-line bg-card hover:border-pop transition-colors">
-              <img src={asset(p.image)} alt="" loading="lazy" className="w-full aspect-video object-cover" />
+              <img src={asset(p.image)} alt="" loading="lazy" className="w-full aspect-[3/4] object-cover" />
               <div className="p-5">
                 <p className="text-xs uppercase tracking-[0.2em] text-sun font-bold">{p.eyebrow}</p>
                 <h3 className="mt-1 font-display font-extrabold text-xl">{p.title}</h3>

@@ -167,7 +167,8 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
   scene.add(floor); disposables.push(floorGeo, floorMat);
 
   /* ---------- the panels ---------- */
-  const PW = opts.mobile ? 3.2 : 4.6, PH = PW * 9 / 16;
+  // portrait panels, like phone screens or photo strips (the Veo clips and the photos are 9:16)
+  const PH = opts.mobile ? 3.7 : 4.3, PW = PH * 9 / 16;
   type P = { mesh: THREE.Mesh; mat: THREE.ShaderMaterial; z: number; video?: HTMLVideoElement; glitchT: number };
   const ps: P[] = panels.map((pn, i) => {
     const geo = new THREE.PlaneGeometry(PW, PH);
@@ -182,15 +183,15 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
     const mesh = new THREE.Mesh(geo, mat);
     const side = opts.mobile ? 0 : (i % 2 ? 1 : -1);
     const z = FIRST - i * GAP;
-    mesh.position.set(side * 1.9, opts.mobile ? 0.35 : 0.2, z);
+    mesh.position.set(side * 1.7, opts.mobile ? 0.45 : 0.25, z);
     mesh.rotation.y = -side * 0.28;
     mesh.userData.index = i;
     scene.add(mesh);
     disposables.push(geo, mat);
 
     const fit = (w: number, h: number) => {
-      // cover crop to 16:9 around the focus point
-      const want = 16 / 9, have = w / h;
+      // cover crop to the panel shape around the focus point
+      const want = PW / PH, have = w / h;
       const [fx, fy] = pn.imagePos ?? [0.5, 0.5];
       if (have > want) { const s = want / have; mat.uniforms.uScale.value.set(s, 1); mat.uniforms.uOffset.value.set(Math.min(1 - s, Math.max(0, fx - s / 2)), 0); }
       else { const s = have / want; mat.uniforms.uScale.value.set(1, s); mat.uniforms.uOffset.value.set(0, Math.min(1 - s, Math.max(0, (1 - fy) - s / 2))); }
@@ -256,7 +257,8 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
       const d = z - p.z; // distance in front of camera
       const near = Math.max(0, 1 - Math.abs(d - 5) / 7);
       // panels stay hidden behind the logo until you fly in
-      p.mat.uniforms.uOpacity.value = Math.min(1, Math.max(0, (d + 0.5) / 2)) * Math.min(1, Math.max(0, (30 - d) / 10)) * smooth(0.09, 0.15, progress);
+      // fade out before the camera reaches a panel, so you never fly through it
+      p.mat.uniforms.uOpacity.value = Math.min(1, Math.max(0, (d - 1.2) / 2.2)) * Math.min(1, Math.max(0, (30 - d) / 10)) * smooth(0.09, 0.15, progress);
       p.mat.uniforms.uFocus.value = near;
       p.mat.uniforms.uTime.value = t;
       p.glitchT = Math.max(0, p.glitchT - dt * 2.2);
