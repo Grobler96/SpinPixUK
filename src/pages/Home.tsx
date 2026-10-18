@@ -12,7 +12,7 @@ import DiscoLights from '@/components/DiscoLights';
 import { chapters, clips, frameUrl, type Chapter } from '@/data/film';
 import PhotoBooth from '@/components/PhotoBooth';
 import BoothMatch from '@/components/BoothMatch';
-import SpinRing from '@/components/SpinRing';
+import PartyTunnel from '@/components/tunnel/PartyTunnel';
 import WashingLine from '@/components/WashingLine';
 import DateCTA from '@/components/DateCTA';
 import Reveal from '@/components/Reveal';
@@ -159,7 +159,7 @@ export default function Home() {
 
       <BoothMatch />
 
-      <SpinRing />
+      <PartyTunnel />
 
       {/* TWO SIDES */}
       <section className="px-4 sm:px-6 pb-24">
