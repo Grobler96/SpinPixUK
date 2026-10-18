@@ -16,7 +16,7 @@ function setMeta(selector: string, attr: string, value: string, create: () => HT
 
 /** Sets the page title and description for the current route from src/data/seo.json (also used at build time). */
 export function useSEO(notFound = false) {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
     const key = notFound ? '404' : pathname.replace(/\/+$/, '') || '/';
     const meta = table[key] ?? table['404'];
@@ -30,6 +30,9 @@ export function useSEO(notFound = false) {
     setMeta('meta[property="og:title"]', 'content', meta.title, mk('meta', { property: 'og:title' }));
     setMeta('meta[property="og:description"]', 'content', meta.description, mk('meta', { property: 'og:description' }));
     setMeta('meta[name="robots"]', 'content', meta.noindex ? 'noindex' : 'index,follow', mk('meta', { name: 'robots' }));
-    window.scrollTo(0, 0);
-  }, [pathname, notFound]);
+    // land on #anchors (e.g. /booths#360-video-booth from the homepage), otherwise start at the top
+    const el = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+    if (el) requestAnimationFrame(() => el.scrollIntoView({ block: 'start' }));
+    else window.scrollTo(0, 0);
+  }, [pathname, hash, notFound]);
 }

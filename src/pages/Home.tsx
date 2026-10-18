@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { Icon } from '@/components/Icon';
 import Marquee from '@/components/Marquee';
 import PhotoCard from '@/components/PhotoCard';
-import Reviews from '@/components/Reviews';
 import SectionHeading from '@/components/SectionHeading';
 import BoothCard from '@/components/BoothCard';
-import CTABand from '@/components/CTABand';
+import ScrollFilm from '@/components/ScrollFilm';
+import NeonText from '@/components/NeonText';
+import DiscoLights from '@/components/DiscoLights';
+import { chapters, clips, frameUrl, type Chapter } from '@/data/film';
+import PhotoBooth from '@/components/PhotoBooth';
+import BoothMatch from '@/components/BoothMatch';
+import PartyTunnel from '@/components/tunnel/PartyTunnel';
+import WashingLine from '@/components/WashingLine';
+import DateCTA from '@/components/DateCTA';
 import Reveal from '@/components/Reveal';
 import { services } from '@/data/services';
 import { eventTypes } from '@/data/events';
@@ -44,6 +51,12 @@ export default function Home() {
 
   return (
     <>
+      <DiscoLights />
+      <ScrollFilm clips={clips} frameUrl={frameUrl} length={Math.max(3.2, clips.length * 1.8)}
+        label="A night with SpinPix: a mirrored disco ball above a dark venue, then the 360 platform lighting up, the classic booth, magic mirror, selfie pod and a 360 spin.">
+        {(p) => <FilmOverlay progress={p} />}
+      </ScrollFilm>
+
       {/* HERO */}
       <section className={`relative overflow-hidden border-b-2 border-line transition-colors duration-500 ${pro ? 'bg-navy text-white' : 'bg-ink'}`}>
         <div className={`absolute inset-0 transition-opacity duration-500 ${pro ? 'grid-lines opacity-100' : 'grain opacity-100'}`} aria-hidden="true" />
@@ -75,7 +88,7 @@ export default function Home() {
                 transition={{ duration: 0.25 }}
               >
                 <p className={`mt-8 font-display font-bold text-sm uppercase tracking-[0.2em] ${pro ? 'text-sun' : 'text-pop'}`}>{h.kicker}</p>
-                <h1 className="mt-3 font-display font-extrabold text-[2.9rem] sm:text-7xl lg:text-[5.4rem] leading-[0.95]">
+                <h2 className="mt-3 font-display font-extrabold text-[2.9rem] sm:text-7xl lg:text-[5.4rem] leading-[0.95]">
                   {h.title.map((l, i) => (
                     <span key={l} className="block">
                       {i === h.title.length - 1 ? (
@@ -83,7 +96,7 @@ export default function Home() {
                       ) : l}
                     </span>
                   ))}
-                </h1>
+                </h2>
                 <p className={`mt-7 text-lg sm:text-xl max-w-xl leading-relaxed ${pro ? 'text-white/75' : 'text-paper/75'}`}>{h.text}</p>
                 <div className="mt-9 flex flex-wrap gap-3">
                   <Link to={h.to} className={`btn ${pro ? 'btn-sun' : 'btn-pop'}`}>{h.cta} <Icon name="ArrowRight" size={18} /></Link>
@@ -120,6 +133,8 @@ export default function Home() {
 
       <Marquee items={['Selfie Pods', 'Magic Mirrors', '360 Video', 'Photo Booths', 'Weddings', 'Parties', 'Proms', 'Christmas Parties', 'Corporate']} className="bg-sun text-ink" />
 
+      <PhotoBooth />
+
       {/* BOOTHS */}
       <section className="px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl">
@@ -141,6 +156,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <BoothMatch />
+
+      <PartyTunnel />
 
       {/* TWO SIDES */}
       <section className="px-4 sm:px-6 pb-24">
@@ -234,8 +253,59 @@ export default function Home() {
         </div>
       </section>
 
-      <Reviews />
-      <CTABand />
+      <WashingLine />
+      <DateCTA />
     </>
+  );
+}
+
+// Scroll fades are calculated in JS: plain range mappings on opacity get handed to the browser's
+// native scroll timeline, which mis-times them inside a pinned section.
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+
+/** One chapter of words over the film: fades and drifts in, lights up in neon, then drifts out. */
+function FilmChapter({ c, progress }: { c: Chapter; progress: MotionValue<number> }) {
+  const [a, b] = c.at;
+  const w = 0.04;
+  const opacity = useTransform(progress, (v) => clamp01(Math.min((v - a) / w, (b - v) / w)));
+  const y = useTransform(progress, (v) => (v < a + w ? 40 * (1 - clamp01((v - a) / w)) : -40 * (1 - clamp01((b - v) / w))));
+  const [lit, setLit] = useState(false);
+  useMotionValueEvent(progress, 'change', (v) => setLit(v > a + w * 0.5 && v < b));
+  const pos = c.side === 'left' ? 'md:items-start md:text-left md:pl-[7vw]' : c.side === 'right' ? 'md:items-end md:text-right md:pr-[7vw]' : '';
+  return (
+    <motion.div style={{ opacity, y }} className={`absolute inset-0 flex flex-col items-center justify-end md:justify-center text-center px-5 pb-36 md:pb-0 pointer-events-none ${pos}`}>
+      <p className="font-display font-bold uppercase tracking-[0.3em] text-[11px] sm:text-xs text-white/80">{c.eyebrow}</p>
+      <p className="mt-3 font-display font-extrabold text-[2.3rem] min-[400px]:text-[2.6rem] sm:text-7xl lg:text-8xl leading-[0.95] tracking-tight" aria-hidden="true">
+        <NeonText text={c.title} color={c.titleColor} lit={lit} />
+      </p>
+      {c.text && <p className="mt-5 max-w-xl text-base sm:text-lg text-white/85 [text-shadow:0_2px_18px_rgba(0,0,0,0.8)]">{c.text}</p>}
+    </motion.div>
+  );
+}
+
+/** Everything drawn over the opening film: chapters, scene counter, scroll cue and the final buttons. */
+function FilmOverlay({ progress }: { progress: MotionValue<number> }) {
+  const cue = useTransform(progress, (v) => 1 - clamp01(v / 0.06));
+  const end = useTransform(progress, (v) => clamp01((v - 0.915) / 0.07));
+  const endY = useTransform(progress, (v) => 30 * (1 - clamp01((v - 0.915) / 0.07)));
+  const [scene, setScene] = useState(1);
+  useMotionValueEvent(progress, 'change', (v) => setScene(Math.min(clips.length, Math.floor(v * clips.length) + 1)));
+  return (
+    <div className="absolute inset-0 z-[5]">
+      <h1 className="sr-only">SpinPix UK: photo booth, magic mirror and 360 video booth hire</h1>
+      {chapters.map((c) => <FilmChapter key={c.title} c={c} progress={progress} />)}
+      <motion.div style={{ opacity: end, y: endY }} className="absolute inset-x-0 bottom-28 md:bottom-16 flex flex-wrap justify-center gap-3 px-4">
+        <a href="#try-the-booth" className="btn btn-pop">Try the booth <Icon name="Camera" size={18} /></a>
+        <Link to="/contact" className="btn btn-ink">Check my date <Icon name="CalendarDays" size={18} /></Link>
+      </motion.div>
+      {clips.length > 1 && (
+        <p aria-hidden="true" className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] font-display font-bold tracking-[0.3em] text-xs text-white/70">
+          {String(scene).padStart(2, '0')} / {String(clips.length).padStart(2, '0')}
+        </p>
+      )}
+      <motion.p style={{ opacity: cue }} className="absolute inset-x-0 bottom-24 md:bottom-12 text-center font-display font-bold uppercase tracking-[0.3em] text-xs text-white/80">
+        Scroll to drop the lights
+      </motion.p>
+    </div>
   );
 }
