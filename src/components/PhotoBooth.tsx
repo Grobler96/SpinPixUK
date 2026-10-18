@@ -310,9 +310,9 @@ export default function PhotoBooth() {
             <div aria-hidden="true" className={`absolute -top-5 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-[6px] transition-all duration-300 ${live ? 'border-white shadow-[0_0_40px_10px_rgba(255,255,255,0.6)]' : 'border-white/30'}`} />
 
             {stage !== 'developing' && stage !== 'done' && (
-              <div ref={frameBox} className="relative mt-8 aspect-[3/2] overflow-hidden rounded-2xl bg-ink touch-none select-none [container-type:inline-size]" onPointerMove={onMove} onPointerUp={() => (drag.current = null)}>
+              <div ref={frameBox} className={`relative mt-8 ${stage === 'setup' ? 'aspect-[4/5] sm:aspect-[3/2]' : 'aspect-[3/2]'} overflow-hidden rounded-2xl bg-ink touch-none select-none [container-type:inline-size]`} onPointerMove={onMove} onPointerUp={() => (drag.current = null)}>
                 {stage === 'setup' && (
-                  <div className="absolute inset-0 grid place-items-center text-center p-6">
+                  <div className="absolute inset-0 grid place-items-center text-center p-4 sm:p-6">
                     <div>
                       <p className="font-display font-extrabold text-2xl sm:text-3xl">Ready when you are</p>
                       <p className="mt-2 text-paper/70 text-sm">Allow your camera when asked. Nothing is uploaded or saved anywhere.</p>

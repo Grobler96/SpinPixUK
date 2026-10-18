@@ -237,7 +237,8 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
     // logo: assemble 0 to 0.06, hold, burst outwards as the camera moves in
     if (logoPoints && logoFrom) {
       const pos = logoPoints.geometry.attributes.position as THREE.BufferAttribute;
-      const a = smooth(0, 0.065, progress), b = smooth(0.1, 0.2, progress);
+      // assembles by itself as the page opens (it is the first thing you see), then bursts as you fly in
+      const a = Math.max(smooth(0.2, 2.6, t), smooth(0, 0.065, progress)), b = smooth(0.1, 0.2, progress);
       const arr = pos.array as Float32Array;
       for (let i = 0; i < arr.length; i += 3) {
         const tw = Math.sin(t * 2 + i) * 0.02;
