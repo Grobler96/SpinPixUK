@@ -22,8 +22,8 @@ function Grid() {
   return (
     <section className="px-4 sm:px-6 py-20 sm:py-28 bg-navy border-y-2 border-line">
       <div className="mx-auto max-w-7xl">
-        <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">Explore the experiences</p>
-        <h2 className="mt-3 font-display font-extrabold text-4xl sm:text-6xl leading-[0.95]">Pick your moment.</h2>
+        <p className="font-display font-bold uppercase tracking-[0.2em] text-sm text-sun">SpinPix UK · Photo booth &amp; 360 video hire</p>
+        <h1 className="mt-3 font-display font-extrabold text-4xl sm:text-6xl leading-[0.95]">Capture the moment. Spin the fun.</h1>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {tunnelPanels.map((p) => (
             <Link key={p.id} to={p.to} className="group rounded-3xl overflow-hidden border-2 border-line bg-card hover:border-pop transition-colors">
@@ -52,12 +52,14 @@ export default function PartyTunnel() {
   const api = useRef<Awaited<ReturnType<typeof import('./scene').createTunnel>> | null>(null);
   const [active, setActive] = useState(-1);
   const [intro, setIntro] = useState(true);
+  const [outro, setOutro] = useState(false);
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     api.current?.setProgress(v);
     setIntro(v < 0.09);
+    setOutro(v > 0.93);
   });
 
   useEffect(() => {
@@ -104,7 +106,7 @@ export default function PartyTunnel() {
   const panel = active >= 0 ? tunnelPanels[active] : null;
 
   return (
-    <section ref={section} className="relative" style={{ height: `${tunnelPanels.length * 85 + 120}vh` }} aria-label="Explore the SpinPix experiences">
+    <section ref={section} className="relative" style={{ height: `${tunnelPanels.length * 85 + 120}vh` }} aria-label="SpinPix UK: explore the experiences">
       <div className="sticky top-0 h-screen h-[100svh] overflow-hidden bg-ink">
         <canvas
           ref={canvas}
@@ -116,13 +118,35 @@ export default function PartyTunnel() {
         <div aria-hidden="true" className="film-grain absolute inset-0 pointer-events-none" />
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[radial-gradient(110%_80%_at_50%_45%,transparent_50%,rgba(7,5,12,0.85))]" />
 
-        {/* intro */}
+        {/* intro: the opening of the homepage */}
         <AnimatePresence>
           {intro && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -20 }} className="absolute inset-x-0 bottom-28 md:bottom-16 text-center px-4 pointer-events-none">
-              <p className="font-display font-bold uppercase tracking-[0.3em] text-xs text-white/80">Explore the experiences</p>
-              <p className="mt-3 font-display font-extrabold text-3xl sm:text-5xl"><NeonText text="Step into the party." color="#8B3DFF" /></p>
-              <p className="mt-3 text-sm text-white/60">Scroll to fly in</p>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.6 }}
+              className="absolute inset-x-0 bottom-36 md:bottom-14 text-center px-4 sm:px-5">
+              <p className="hidden sm:block font-display font-bold uppercase tracking-[0.3em] text-xs text-white/80">SpinPix UK · Photo booth &amp; 360 video hire</p>
+              <h1 className="mt-3 font-display font-extrabold text-[clamp(2rem,9vw,4.5rem)] leading-[0.95]">
+                <NeonText text="Capture the moment." color="#2F7BFF" /><br /><NeonText text="Spin the fun." color="#FF2E93" />
+              </h1>
+              <p className="hidden sm:block mt-4 mx-auto max-w-xl text-white/80 [text-shadow:0_2px_14px_rgba(0,0,0,0.9)]">Magic mirrors, selfie pods, classic booths and slow motion 360 video for weddings, parties, proms and work events across the UK.</p>
+              <div className="mt-5 sm:mt-6 flex justify-center gap-2 sm:gap-3 [&>*]:px-4 [&>*]:text-sm [&>*]:whitespace-nowrap [&_svg]:hidden sm:[&_svg]:block sm:[&>*]:px-6 sm:[&>*]:text-base">
+                <Link to="/contact" className="btn btn-pop">Check my date <Icon name="CalendarDays" size={18} /></Link>
+                <a href="#try-the-booth" className="btn btn-ghost">Try the booth <Icon name="Camera" size={18} /></a>
+              </div>
+              <p className="mt-4 sm:mt-5 font-display font-bold uppercase tracking-[0.3em] text-[11px] text-white/60">Scroll to step inside</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* the end of the flight */}
+        <AnimatePresence>
+          {outro && (
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="absolute inset-x-0 top-1/3 text-center px-5">
+              <p className="font-display font-extrabold text-[clamp(2rem,8vw,4rem)] leading-[0.95]"><NeonText text="Your party, your moment." color="#8B3DFF" /></p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <Link to="/contact" className="btn btn-pop">Check my date <Icon name="CalendarDays" size={18} /></Link>
+                <Link to="/booths" className="btn btn-ghost">Meet the booths</Link>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
