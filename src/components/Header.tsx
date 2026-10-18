@@ -10,7 +10,7 @@ export default function Header() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 bg-ink/90 backdrop-blur border-b-2 border-line">
+    <header className="sticky top-0 z-50 bg-ink/95 border-b-2 border-line">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 h-[72px] flex items-center justify-between gap-4">
         <Link to="/" aria-label="SpinPix UK home"><Logo /></Link>
 

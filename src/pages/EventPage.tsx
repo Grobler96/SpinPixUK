@@ -24,7 +24,7 @@ export default function EventPage() {
             <p className="font-display font-bold uppercase tracking-[0.2em] text-sm opacity-80">{ev.name} <span aria-hidden="true">{ev.emoji}</span></p>
             <h1 className="mt-3 font-display font-extrabold text-5xl sm:text-7xl leading-[0.95]">{ev.headline}</h1>
             <p className="mt-6 text-lg sm:text-xl max-w-xl opacity-90 leading-relaxed">{ev.blurb}</p>
-            <Link to={`/contact?event=${ev.slug}`} className="btn btn-ink mt-8">Get a {ev.name.toLowerCase().replace(/s$/, '')} quote <Icon name="ArrowRight" size={18} /></Link>
+            <Link to={`/contact?event=${ev.slug}`} className="btn btn-ink mt-8">Get a {ev.name.toLowerCase().replace(/ies$/, 'y').replace(/s$/, '')} quote <Icon name="ArrowRight" size={18} /></Link>
           </div>
           <div className="hidden md:flex justify-center relative h-[420px]">
             {ev.photos.map((p, i) => (

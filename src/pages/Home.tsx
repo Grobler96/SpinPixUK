@@ -105,14 +105,14 @@ export default function Home() {
           <div className="relative h-[400px] sm:h-[500px] mx-auto w-full max-w-md">
             {(pro
               ? [
-                  { src: asset('photos/magic-mirror-prom.jpg'), alt: 'Magic mirror with a personalised school prom screen', c: 'Custom branding', pos: '50% 45%', cls: 'left-0 top-8', r: -6 },
+                  { src: asset('photos/magic-mirror-prom.jpg'), alt: 'Magic mirror with a personalised school prom screen', c: 'Custom branding', pos: '50% 45%', cls: 'left-2 top-8', r: -6 },
                   { src: asset('photos/selfie-pod.jpg'), alt: 'SpinPix UK branded selfie pod', c: 'Branded pod', pos: '50% 35%', cls: 'left-[32%] top-0', r: 3 },
-                  { src: asset('photos/video-360.jpg'), alt: 'Guests on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'right-0 top-16', r: 9 },
+                  { src: asset('photos/video-360.jpg'), alt: 'Guests on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'right-2 top-16', r: 9 },
                 ]
               : [
-                  { src: asset('photos/video-360.jpg'), alt: 'Guests posing with inflatable guitars on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'left-0 top-8', r: -7 },
+                  { src: asset('photos/video-360.jpg'), alt: 'Guests posing with inflatable guitars on the 360 video platform', c: '360 video', pos: '50% 60%', cls: 'left-2 top-8', r: -7 },
                   { src: asset('photos/magic-mirror-guests.jpg'), alt: 'Guests in props posing at the magic mirror', c: 'Magic mirror', pos: '50% 40%', cls: 'left-[32%] top-0', r: 3 },
-                  { src: asset('photos/booth-camper.jpg'), alt: 'Enclosed photo booth with a camper van skin', c: 'Camper van booth', pos: '40% 50%', cls: 'right-0 top-16', r: 9 },
+                  { src: asset('photos/booth-camper.jpg'), alt: 'Enclosed photo booth with a camper van skin', c: 'Camper van booth', pos: '40% 50%', cls: 'right-2 top-16', r: 9 },
                 ]
             ).map((p) => (
               <motion.div key={p.src} className={`absolute ${p.cls}`} animate={{ rotate: p.r }} transition={{ type: 'spring', stiffness: 80 }}>
