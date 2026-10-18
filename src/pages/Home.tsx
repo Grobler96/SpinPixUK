@@ -269,13 +269,14 @@ function FilmChapter({ c, progress }: { c: Chapter; progress: MotionValue<number
   const w = 0.04;
   const opacity = useTransform(progress, (v) => clamp01(Math.min((v - a) / w, (b - v) / w)));
   const y = useTransform(progress, (v) => (v < a + w ? 40 * (1 - clamp01((v - a) / w)) : -40 * (1 - clamp01((b - v) / w))));
-  const [lit, setLit] = useState(false);
-  useMotionValueEvent(progress, 'change', (v) => setLit(v > a + w * 0.5 && v < b));
+  const isLit = (v: number) => v > a + w * 0.5 && v < b;
+  const [lit, setLit] = useState(() => isLit(progress.get())); // the first chapter is lit on arrival
+  useMotionValueEvent(progress, 'change', (v) => setLit(isLit(v)));
   const pos = c.side === 'left' ? 'md:items-start md:text-left md:pl-[7vw]' : c.side === 'right' ? 'md:items-end md:text-right md:pr-[7vw]' : '';
   return (
     <motion.div style={{ opacity, y }} className={`absolute inset-0 flex flex-col items-center justify-end md:justify-center text-center px-5 pb-36 md:pb-0 pointer-events-none ${pos}`}>
       <p className="font-display font-bold uppercase tracking-[0.3em] text-[11px] sm:text-xs text-white/80">{c.eyebrow}</p>
-      <p className="mt-3 font-display font-extrabold text-[2.3rem] min-[400px]:text-[2.6rem] sm:text-7xl lg:text-8xl leading-[0.95] tracking-tight" aria-hidden="true">
+      <p className="mt-3 font-display font-extrabold text-[clamp(1.9rem,8.4vw,2.6rem)] sm:text-7xl lg:text-8xl leading-[0.95] tracking-tight" aria-hidden="true">
         <NeonText text={c.title} color={c.titleColor} lit={lit} />
       </p>
       {c.text && <p className="mt-5 max-w-xl text-base sm:text-lg text-white/85 [text-shadow:0_2px_18px_rgba(0,0,0,0.8)]">{c.text}</p>}

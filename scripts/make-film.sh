@@ -6,7 +6,7 @@
 set -euo pipefail
 src="${1:?usage: make-film.sh <clip.mp4> <id> [fps]}"; id="${2:?id}"; fps="${3:-15}"
 out="public/film/$id"; rm -rf "$out"; mkdir -p "$out/m"
-read -r w h < <(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=' ' "$src")
+IFS=, read -r w h < <(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 "$src")
 ffmpeg -v error -i "$src" -an -vf "fps=$fps,scale=-2:960:flags=lanczos,crop=540:960" -c:v libwebp -quality 62 "$out/m/%03d.webp"
 desktop=false
 if [ "$w" -gt "$h" ]; then

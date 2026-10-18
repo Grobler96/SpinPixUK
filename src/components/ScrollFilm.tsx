@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { useMotionValueEvent, useScroll, type MotionValue } from 'framer-motion';
 import type { Clip } from '@/data/film';
 
 type Props = {
@@ -18,7 +18,7 @@ const FADE = 0.12; // share of each clip spent blending into the next
 /**
  * A pinned, scroll controlled film made of one or more clips. Frames are drawn on a canvas as
  * the visitor scrolls, forwards and backwards, and each clip blends into the next.
- * Cinematic touches: letterbox bars that open as you start, film grain and a vignette.
+ * Cinematic touches: film grain and a vignette.
  * Phones get portrait frames; desktops get landscape frames when a clip has them,
  * otherwise the portrait film sits centred over a blurred copy of itself.
  */
@@ -31,7 +31,6 @@ export default function ScrollFilm({ clips, frameUrl, length = 3, label, childre
   const [mobile, setMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const wide = !mobile && clips.every((c) => c.desktop);
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });
-  const bars = useTransform(scrollYProgress, (v) => `${11 * (1 - Math.min(1, v / 0.06))}vh`);
 
   const nearest = (c: number, i: number) => {
     const set = images.current[c] ?? [];
@@ -137,8 +136,6 @@ export default function ScrollFilm({ clips, frameUrl, length = 3, label, childre
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[60%] pointer-events-none bg-gradient-to-t from-ink/85 via-ink/35 to-transparent" />
         <div aria-hidden="true" className="film-grain absolute inset-0 pointer-events-none" />
         {children?.(scrollYProgress)}
-        <motion.div aria-hidden="true" style={{ height: bars }} className="absolute top-0 inset-x-0 bg-black z-10" />
-        <motion.div aria-hidden="true" style={{ height: bars }} className="absolute bottom-0 inset-x-0 bg-black z-10" />
       </div>
     </section>
   );
