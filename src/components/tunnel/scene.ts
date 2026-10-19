@@ -219,6 +219,7 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
   /* ---------- state, input, loop ---------- */
   let target = 0, progress = 0, focused = -1, running = false, raf = 0;
   const mouse = new THREE.Vector2(), look = new THREE.Vector2();
+  const tilt = new THREE.Vector2(), lean = new THREE.Vector2();
   const clock = new THREE.Clock();
   const smooth = (e0: number, e1: number, x: number) => { const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
 
@@ -231,8 +232,11 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
     progress += (target - progress) * Math.min(1, dt * 6);
     const z = camZ(progress);
     look.lerp(mouse, Math.min(1, dt * 3));
-    camera.position.set(look.x * 0.6 + Math.sin(t * 0.3) * 0.08, look.y * 0.35 + Math.cos(t * 0.27) * 0.06, z);
-    camera.lookAt(look.x * 1.2, look.y * 0.6, z - 10);
+    // phone tilt: the camera leans sideways but keeps aiming far down the tunnel,
+    // so near panels slide past the far end, like peering round a corner
+    lean.lerp(tilt, Math.min(1, dt * 5));
+    camera.position.set(look.x * 0.6 + lean.x * 1.4 + Math.sin(t * 0.3) * 0.08, look.y * 0.35 + lean.y * 0.8 + Math.cos(t * 0.27) * 0.06, z);
+    camera.lookAt(look.x * 1.2 + lean.x * 0.15, look.y * 0.6 + lean.y * 0.1, z - 10);
 
     // logo: assemble 0 to 0.06, hold, burst outwards as the camera moves in
     if (logoPoints && logoFrom) {
@@ -281,6 +285,8 @@ export function createTunnel(canvas: HTMLCanvasElement, panels: PanelInput[], op
   return {
     setProgress(p: number) { target = p; },
     setPointer(x: number, y: number) { mouse.set(x, y); },
+    /** phone tilt, -1 to 1 on each axis */
+    setTilt(x: number, y: number) { tilt.set(x, y); },
     /** index of the panel under a click, or -1 */
     pick(x: number, y: number) {
       raycaster.setFromCamera(new THREE.Vector2(x, y), camera);

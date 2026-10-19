@@ -5,6 +5,7 @@ import NeonText from '../NeonText';
 import { Icon } from '../Icon';
 import { panelMedia, tunnelPanels } from '@/data/tunnel';
 import { asset } from '@/lib/asset';
+import { useTilt } from './useTilt';
 
 const COLORS = ['#FF2E93', '#2F7BFF', '#8B3DFF', '#4DE1FF'];
 
@@ -54,6 +55,7 @@ export default function PartyTunnel() {
   const [intro, setIntro] = useState(true);
   const [outro, setOutro] = useState(false);
   const navigate = useNavigate();
+  const tilt = useTilt((x, y) => api.current?.setTilt(x, y));
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
@@ -122,7 +124,7 @@ export default function PartyTunnel() {
         <AnimatePresence>
           {intro && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.6 }}
-              className="absolute inset-x-0 bottom-36 md:bottom-14 text-center px-4 sm:px-5">
+              className="absolute inset-x-0 bottom-40 md:bottom-14 text-center px-4 sm:px-5">
               <p className="hidden sm:block font-display font-bold uppercase tracking-[0.3em] text-xs text-white/80">SpinPix UK · Photo booth &amp; 360 video hire</p>
               <h1 className="mt-3 font-display font-extrabold text-[clamp(2rem,9vw,4.5rem)] leading-[0.95]">
                 <NeonText text="Capture the moment." color="#2F7BFF" /><br /><NeonText text="Spin the fun." color="#FF2E93" />
@@ -132,7 +134,12 @@ export default function PartyTunnel() {
                 <Link to="/contact" className="btn btn-pop">Check my date <Icon name="CalendarDays" size={18} /></Link>
                 <a href="#try-the-booth" className="btn btn-ghost">Try the booth <Icon name="Camera" size={18} /></a>
               </div>
-              <p className="mt-4 sm:mt-5 font-display font-bold uppercase tracking-[0.3em] text-[11px] text-white/60">Scroll to step inside</p>
+              <p className="mt-4 sm:mt-5 font-display font-bold uppercase tracking-[0.3em] text-[11px] text-white/60">Scroll to step inside{tilt.state === 'on' && <span className="block mt-1.5 text-white/45">Tilt your phone to look around</span>}</p>
+              {tilt.state === 'ask' && (
+                <button type="button" onClick={tilt.enable} className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-display font-bold text-white backdrop-blur">
+                  <Icon name="Smartphone" size={14} /> Tilt to look around
+                </button>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
