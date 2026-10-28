@@ -30,7 +30,8 @@ jobs:
         run: npm run build
         env:
           BASE_PATH: /SpinPixUK/
-          SITE_URL: https://grobler96.github.io/SpinPixUK
+          # The GitHub Pages copy is a mirror: its canonical URLs point at the live site on the custom domain.
+          SITE_URL: https://www.spinpixuk.co.uk
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
