@@ -6,7 +6,9 @@
 // Routes come from src/App.tsx; titles and descriptions from src/data/seo.json (also used by the in-app useSEO hook).
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
-const SITE_URL = (process.env.SITE_URL || 'https://grobler96.github.io/SpinPixUK').replace(/\/+$/, '');
+// Canonical address of the live site (the custom domain). Every canonical, sitemap, robots.txt and social URL is built from it,
+// so mirrors such as the GitHub Pages copy also point search engines at this address. Override with SITE_URL if the domain changes.
+const SITE_URL = (process.env.SITE_URL || 'https://www.spinpixuk.co.uk').replace(/\/+$/, '');
 const seo = JSON.parse(readFileSync('src/data/seo.json', 'utf8'));
 const app = readFileSync('src/App.tsx', 'utf8');
 const routes = [...app.matchAll(/path="\/([a-z0-9-]+)"/g)].map((m) => `/${m[1]}`);
