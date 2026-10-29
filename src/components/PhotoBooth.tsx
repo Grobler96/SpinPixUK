@@ -178,9 +178,18 @@ export default function PhotoBooth() {
     c.width = SW; c.height = SH;
     const g = c.getContext('2d')!;
     g.fillStyle = theme.bg; g.fillRect(0, 0, SW, SH);
+    // Transparent SpinPix logo stamped on every photo, so cropping off the footer doesn't remove the branding.
+    const mark = await loadImage(asset('watermark.png')).catch(() => null);
     shots.current.forEach((s, i) => {
       const y = PAD + i * (CH + GAP);
       g.drawImage(s, PAD, y);
+      if (mark) {
+        const mw = 150, mh = (mark.naturalHeight / mark.naturalWidth) * mw;
+        g.save();
+        g.shadowColor = 'rgba(0,0,0,0.65)'; g.shadowBlur = 10; g.globalAlpha = 0.92;
+        g.drawImage(mark, PAD + CW - mw - 14, y + CH - mh - 12, mw, mh);
+        g.restore();
+      }
       g.strokeStyle = theme.accent; g.lineWidth = 3; g.strokeRect(PAD + 1.5, y + 1.5, CW - 3, CH - 3);
     });
     const top = PAD + SHOTS * (CH + GAP) - GAP; // footer starts here
