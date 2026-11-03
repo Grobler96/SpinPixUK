@@ -120,7 +120,7 @@ function Portal({ event, onLogout }: { event: PortalEvent; onLogout: () => void 
             </div>
             {event.galleryPassword && <p className="mt-4 text-paper/80">Gallery password: <span className="font-display font-bold text-paper select-all">{event.galleryPassword}</span></p>}
             {event.embedGallery && (
-              <iframe title={`${event.title} gallery`} src={event.galleryLink} loading="lazy" className="mt-6 w-full h-[70vh] rounded-2xl border-2 border-line bg-white" />
+              <iframe title={`${event.title} gallery`} src={event.galleryLink} loading="lazy" allow="fullscreen" allowFullScreen className="mt-6 w-full h-[70vh] rounded-2xl border-2 border-line bg-white" />
             )}
           </>
         ) : (

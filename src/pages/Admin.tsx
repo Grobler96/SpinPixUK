@@ -14,7 +14,7 @@ const store = {
   set: (v: string) => { try { sessionStorage.setItem(TOKEN_KEY, v); } catch { /* private mode */ } },
   clear: () => { try { sessionStorage.removeItem(TOKEN_KEY); } catch { /* private mode */ } },
 };
-const empty: EventFields = { title: '', eventDate: '', guestLink: '', galleryLink: '', galleryPassword: '', embedGallery: false, notes: '' };
+const empty: EventFields = { title: '', eventDate: '', guestLink: '', galleryLink: '', galleryPassword: '', embedGallery: true, notes: '' };
 const errText = (e: unknown) => (e instanceof Error ? e.message : 'Something went wrong.');
 
 function Field({ id, label, hint, children }: { id: string; label: string; hint?: string; children: React.ReactNode }) {
@@ -122,11 +122,11 @@ function Manager({ token, onLogout }: { token: string; onLogout: () => void }) {
         <Field id="date" label="Event date"><input id="date" type="date" className="field" value={form.eventDate} onChange={(e) => set('eventDate', e.target.value)} /></Field>
         <Field id="guest" label="Guest upload link (from TouchPix)" hint="The link guests open to upload. The QR code is made from this."><input id="guest" type="url" placeholder="https://…" className="field" value={form.guestLink} onChange={(e) => set('guestLink', e.target.value)} /></Field>
         <Field id="gallery" label="Gallery link (from TouchPix)"><input id="gallery" type="url" placeholder="https://…" className="field" value={form.galleryLink} onChange={(e) => set('galleryLink', e.target.value)} /></Field>
-        <Field id="gpass" label="Gallery password (if it has one)"><input id="gpass" maxLength={100} className="field" value={form.galleryPassword} onChange={(e) => set('galleryPassword', e.target.value)} /></Field>
+        <Field id="gpass" label="Gallery password (only if it has one)"><input id="gpass" maxLength={100} className="field" value={form.galleryPassword} onChange={(e) => set('galleryPassword', e.target.value)} /></Field>
         <div className="flex items-end">
           <label className="flex items-start gap-3 cursor-pointer">
             <input type="checkbox" className="mt-1 w-5 h-5 accent-[#FF2E93]" checked={form.embedGallery} onChange={(e) => set('embedGallery', e.target.checked)} />
-            <span><span className="font-display font-bold text-sm">Show the gallery inside this page</span><span className="block text-xs text-paper/55">Only turn on if the gallery loads properly when shown here; otherwise they just get an “Open my gallery” button.</span></span>
+            <span><span className="font-display font-bold text-sm">Show the gallery inside this page</span><span className="block text-xs text-paper/55">TouchPix galleries display fine here. Turn off if one ever doesn’t load; the couple still get an “Open my gallery” button either way.</span></span>
           </label>
         </div>
         <div className="sm:col-span-2"><Field id="notes" label="Note for the couple (optional)"><textarea id="notes" rows={3} maxLength={1000} className="field" value={form.notes} onChange={(e) => set('notes', e.target.value)} /></Field></div>
