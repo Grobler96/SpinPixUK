@@ -1,0 +1,17 @@
+name = "spinpix-events"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# Where events are stored. Create it once with:  npx wrangler kv namespace create EVENTS
+# then paste the id it prints below. (Local development works with the placeholder.)
+[[kv_namespaces]]
+binding = "EVENTS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+# Websites allowed to call this API from a browser (comma separated, no trailing slashes).
+ALLOWED_ORIGINS = "https://grobler96.github.io,https://www.spinpixuk.co.uk,https://spinpixuk.co.uk,http://localhost:5173,http://localhost:4173"
+
+# Secrets (never put these in this file). Set them with:
+#   npx wrangler secret put ADMIN_PASSWORD   -> the password Ian uses for the admin page
+#   npx wrangler secret put TOKEN_SECRET     -> any long random string (used to sign login tokens)

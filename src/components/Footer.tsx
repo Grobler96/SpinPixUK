@@ -29,6 +29,7 @@ export default function Footer() {
             {nav.map((n) => (
               <li key={n.path}><Link to={n.path} className="text-paper/75 hover:text-white">{n.label}</Link></li>
             ))}
+            <li><Link to="/my-event" className="text-paper/75 hover:text-white">Event gallery login</Link></li>
           </ul>
         </div>
 

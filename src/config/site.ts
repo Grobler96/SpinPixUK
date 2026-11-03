@@ -14,6 +14,10 @@ export const site = {
   facebook: 'https://www.facebook.com/share/1NxxFherc2/',
   google: 'https://share.google/NcfdmORITdOI4FxdL',
   credit: { name: 'AI by AO', label: 'Yorkshire web design by AI by AO', url: 'https://www.aibyao.com/web-design' },
+  // Address of the event portal API (the Cloudflare Worker in /worker). Leave empty until it is deployed;
+  // the portal pages then show a friendly "not set up yet" message. Can be overridden with VITE_API_URL.
+  apiUrl: '',
+  galleryMonths: 6, // how long event galleries are kept (shown to customers)
   // Web3Forms access key. Public by design: it can only email the address it was created for.
   formKey: 'f901d5ac-c71f-4e14-b3f0-a8a84f538029',
 } as const;

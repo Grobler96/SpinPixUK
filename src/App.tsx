@@ -10,6 +10,8 @@ import FAQs from '@/pages/FAQs';
 import Contact from '@/pages/Contact';
 import { Privacy, Terms, Accessibility } from '@/pages/Legal';
 import ThankYou from '@/pages/ThankYou';
+import MyEvent from '@/pages/MyEvent';
+import Admin from '@/pages/Admin';
 import NotFound from '@/pages/NotFound';
 
 export default function App() {
@@ -28,6 +30,8 @@ export default function App() {
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/my-event" element={<MyEvent />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/accessibility" element={<Accessibility />} />
