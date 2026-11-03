@@ -60,5 +60,15 @@
     "title": "Page not found | SpinPix UK",
     "description": "Sorry, that page doesn't exist. Head back to the SpinPix UK home page.",
     "noindex": true
+  },
+  "/my-event": {
+    "title": "Your event gallery | SpinPix UK",
+    "description": "Log in to get your guest QR code, print table cards and open your event gallery.",
+    "noindex": true
+  },
+  "/admin": {
+    "title": "Event admin | SpinPix UK",
+    "description": "SpinPix UK team area.",
+    "noindex": true
   }
 }

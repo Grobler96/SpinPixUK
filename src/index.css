@@ -75,3 +75,14 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Printing the table cards: the sheet is rendered next to #root; on paper only the sheet is shown. */
+@media screen { .print-area { display: none; } }
+@media print {
+  @page { size: A4; margin: 8mm; }
+  html, body { background: #fff !important; }
+  #root { display: none !important; }
+  .print-area { display: grid !important; grid-template-columns: repeat(2, 94mm); gap: 5mm; justify-content: start; }
+  .print-card { width: 94mm; height: 134mm; break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .print-card img[alt^="SpinPix"] { width: 40mm; }
+}
