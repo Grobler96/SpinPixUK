@@ -1,0 +1,10 @@
+/* A: works with the current logo image (black background). Black melts into the gradient; glow + gentle float. */
+.header_logo { position: relative; display:flex; justify-content:center; }
+.header_logo::before { content:""; position:absolute; left:50%; top:50%; width:520px; height:260px; max-width:95vw; transform:translate(-50%,-50%);
+  background: radial-gradient(closest-side, rgba(255,46,147,.65), rgba(139,61,255,.35) 55%, transparent 75%); filter: blur(18px);
+  animation: spxHalo 3.4s ease-in-out infinite; pointer-events:none; }
+.header_logo_image { position:relative; mix-blend-mode: screen; width:min(440px,84vw) !important; height:auto !important; max-height:none !important; object-fit:contain;
+  animation: spxFloat 5.5s ease-in-out infinite; }
+@keyframes spxFloat { 0%,100% { transform: translateY(0) rotate(-1.2deg) scale(1);} 50% { transform: translateY(-9px) rotate(1.2deg) scale(1.03);} }
+@keyframes spxHalo  { 0%,100% { opacity:.55; transform:translate(-50%,-50%) scale(.94);} 50% { opacity:1; transform:translate(-50%,-50%) scale(1.08);} }
+@media (prefers-reduced-motion: reduce) { .header_logo::before, .header_logo_image { animation:none; } }
