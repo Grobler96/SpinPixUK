@@ -14,7 +14,7 @@ const store = {
   set: (v: string) => { try { sessionStorage.setItem(TOKEN_KEY, v); } catch { /* private mode */ } },
   clear: () => { try { sessionStorage.removeItem(TOKEN_KEY); } catch { /* private mode */ } },
 };
-const empty: EventFields = { title: '', eventDate: '', guestLink: '', galleryLink: '', galleryPassword: '', embedGallery: true, notes: '' };
+const empty: EventFields = { title: '', eventDate: '', galleryUntil: '', guestLink: '', galleryLink: '', galleryPassword: '', embedGallery: true, notes: '' };
 const errText = (e: unknown) => (e instanceof Error ? e.message : 'Something went wrong.');
 
 function Field({ id, label, hint, children }: { id: string; label: string; hint?: string; children: React.ReactNode }) {
@@ -82,7 +82,7 @@ function Manager({ token, onLogout }: { token: string; onLogout: () => void }) {
 
   const edit = (e: PortalEvent) => {
     setEditing(e.code); setSent(null); setError('');
-    setForm({ title: e.title, eventDate: e.eventDate, guestLink: e.guestLink, galleryLink: e.galleryLink, galleryPassword: e.galleryPassword, embedGallery: e.embedGallery, notes: e.notes });
+    setForm({ title: e.title, eventDate: e.eventDate, galleryUntil: e.galleryUntil ?? '', guestLink: e.guestLink, galleryLink: e.galleryLink, galleryPassword: e.galleryPassword, embedGallery: e.embedGallery, notes: e.notes });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const reset = async (e: PortalEvent) => {
@@ -122,6 +122,7 @@ function Manager({ token, onLogout }: { token: string; onLogout: () => void }) {
         <Field id="date" label="Event date"><input id="date" type="date" className="field" value={form.eventDate} onChange={(e) => set('eventDate', e.target.value)} /></Field>
         <Field id="guest" label="Guest upload link (from TouchPix)" hint="The link guests open to upload. The QR code is made from this."><input id="guest" type="url" placeholder="https://…" className="field" value={form.guestLink} onChange={(e) => set('guestLink', e.target.value)} /></Field>
         <Field id="gallery" label="Gallery link (from TouchPix)"><input id="gallery" type="url" placeholder="https://…" className="field" value={form.galleryLink} onChange={(e) => set('galleryLink', e.target.value)} /></Field>
+        <Field id="until" label="Gallery kept until" hint="When TouchPix stops storing it. On MultiPass that is 6 months from when the event was created in TouchPix, not from the event date."><input id="until" type="date" className="field" value={form.galleryUntil} onChange={(e) => set('galleryUntil', e.target.value)} /></Field>
         <Field id="gpass" label="Gallery password (only if it has one)"><input id="gpass" maxLength={100} className="field" value={form.galleryPassword} onChange={(e) => set('galleryPassword', e.target.value)} /></Field>
         <div className="flex items-end">
           <label className="flex items-start gap-3 cursor-pointer">

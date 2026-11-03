@@ -4,6 +4,7 @@ export type PortalEvent = {
   code: string;
   title: string;
   eventDate: string;
+  galleryUntil: string;
   guestLink: string;
   galleryLink: string;
   galleryPassword: string;

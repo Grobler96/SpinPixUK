@@ -20,13 +20,6 @@ const fmtDate = (iso: string) => {
   const d = iso ? new Date(`${iso}T12:00:00`) : null;
   return d && !isNaN(d.getTime()) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
 };
-const keptUntil = (iso: string, months: number) => {
-  const d = iso ? new Date(`${iso}T12:00:00`) : null;
-  if (!d || isNaN(d.getTime())) return '';
-  d.setMonth(d.getMonth() + months);
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-};
-
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [done, setDone] = useState(false);
   return (
@@ -75,7 +68,7 @@ function Login({ onDone }: { onDone: (e: PortalEvent) => void }) {
 function Portal({ event, onLogout }: { event: PortalEvent; onLogout: () => void }) {
   const qr = useQr(event.guestLink);
   const date = fmtDate(event.eventDate);
-  const until = keptUntil(event.eventDate, site.galleryMonths);
+  const until = fmtDate(event.galleryUntil ?? '');
   return (
     <div className="mt-10 grid gap-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -112,7 +105,7 @@ function Portal({ event, onLogout }: { event: PortalEvent; onLogout: () => void 
         <h2 className="font-display font-extrabold text-2xl sm:text-3xl">2. Your gallery</h2>
         {event.galleryLink ? (
           <>
-            <p className="mt-4 text-lg text-paper/80">Every photo and video your guests add appears in your private gallery.{until ? ` It’s kept until ${until}.` : ` It’s kept for ${site.galleryMonths} months after your event.`}</p>
+            <p className="mt-4 text-lg text-paper/80">Every photo and video your guests add appears in your private gallery.{until ? ` It’s kept until ${until}, so please download your favourites before then.` : ' Please download your favourites once your event is over.'}</p>
             <div className="mt-5 flex flex-wrap items-center gap-2">
               <a href={event.galleryLink} target="_blank" rel="noopener noreferrer" className="btn btn-sun">Open my gallery <Icon name="ArrowRight" size={18} /></a>
               <CopyButton text={event.galleryLink} label="Copy gallery link" />

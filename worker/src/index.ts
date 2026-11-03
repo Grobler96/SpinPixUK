@@ -32,6 +32,7 @@ type StoredEvent = {
   code: string;
   title: string;
   eventDate: string; // YYYY-MM-DD or ''
+  galleryUntil: string; // YYYY-MM-DD or '' : when TouchPix stops storing the gallery (set by the team)
   guestLink: string; // TouchPix link/QR target guests scan to upload
   galleryLink: string; // TouchPix gallery link
   galleryPassword: string; // TouchPix gallery password, shown to the couple only
@@ -154,9 +155,12 @@ function readFields(body: Record<string, unknown>) {
   if (!title) throw new HttpError(400, 'Please enter a name for the event, e.g. "Toni & Luke".');
   const eventDate = clean(body.eventDate, 10);
   if (eventDate && !/^\d{4}-\d{2}-\d{2}$/.test(eventDate)) throw new HttpError(400, 'The event date must look like 2026-09-26.');
+  const galleryUntil = clean(body.galleryUntil, 10);
+  if (galleryUntil && !/^\d{4}-\d{2}-\d{2}$/.test(galleryUntil)) throw new HttpError(400, 'The gallery end date must look like 2027-03-26.');
   return {
     title,
     eventDate,
+    galleryUntil,
     guestLink: httpsUrl(body.guestLink, 'The guest upload link', false),
     galleryLink: httpsUrl(body.galleryLink, 'The gallery link', false),
     galleryPassword: clean(body.galleryPassword, 100),

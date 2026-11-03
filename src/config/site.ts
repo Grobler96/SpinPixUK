@@ -17,7 +17,6 @@ export const site = {
   // Address of the event portal API (the Cloudflare Worker in /worker). Leave empty until it is deployed;
   // the portal pages then show a friendly "not set up yet" message. Can be overridden with VITE_API_URL.
   apiUrl: '',
-  galleryMonths: 6, // how long event galleries are kept (shown to customers)
   // Web3Forms access key. Public by design: it can only email the address it was created for.
   formKey: 'f901d5ac-c71f-4e14-b3f0-a8a84f538029',
 } as const;
