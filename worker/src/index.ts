@@ -21,10 +21,18 @@ interface KV {
   delete(key: string): Promise<void>;
   list(options: { prefix: string; cursor?: string }): Promise<{ keys: { name: string }[]; list_complete: boolean; cursor?: string }>;
 }
+type SecretValue = string | { get(): Promise<string> } | undefined;
+
+async function secret(v: SecretValue): Promise<string> {
+  if (!v) return '';
+  return typeof v === 'string' ? v : await v.get();
+}
+
 interface Env {
   EVENTS: KV;
-  ADMIN_PASSWORD: string;
-  TOKEN_SECRET: string;
+  // Either a plain secret or a Cloudflare Secrets Store binding (read with .get()).
+  ADMIN_PASSWORD: SecretValue;
+  TOKEN_SECRET: SecretValue;
   ALLOWED_ORIGINS: string;
 }
 
@@ -92,7 +100,7 @@ async function hmac(secret: string, data: string) {
 async function makeToken(env: Env, role: 'admin' | 'event', subject: string) {
   const exp = Math.floor(Date.now() / 1000) + TOKEN_HOURS[role] * 3600;
   const body = `${role}.${subject}.${exp}`;
-  return `${body}.${await hmac(env.TOKEN_SECRET, body)}`;
+  return `${body}.${await hmac(await secret(env.TOKEN_SECRET), body)}`;
 }
 async function readToken(env: Env, request: Request, role: 'admin' | 'event'): Promise<string | null> {
   const h = request.headers.get('Authorization') ?? '';
@@ -101,7 +109,7 @@ async function readToken(env: Env, request: Request, role: 'admin' | 'event'): P
   if (parts.length !== 4) return null;
   const [r, subject, exp, sig] = parts;
   if (r !== role || Number(exp) < Date.now() / 1000) return null;
-  if (!same(sig, await hmac(env.TOKEN_SECRET, `${r}.${subject}.${exp}`))) return null;
+  if (!same(sig, await hmac(await secret(env.TOKEN_SECRET), `${r}.${subject}.${exp}`))) return null;
   return subject;
 }
 
@@ -230,7 +238,8 @@ async function route(request: Request, env: Env): Promise<Response> {
   if (path === '/api/admin/login' && method === 'POST') {
     const clearThrottle = await throttle(env, request, 'admin');
     const b = await json();
-    if (!env.ADMIN_PASSWORD || !same(await sha256(clean(b.password, 200)), await sha256(env.ADMIN_PASSWORD))) throw new HttpError(401, 'Wrong password.');
+    const adminPassword = await secret(env.ADMIN_PASSWORD);
+    if (!adminPassword || !same(await sha256(clean(b.password, 200)), await sha256(adminPassword))) throw new HttpError(401, 'Wrong password.');
     await clearThrottle();
     return reply(request, env, { token: await makeToken(env, 'admin', 'admin') });
   }

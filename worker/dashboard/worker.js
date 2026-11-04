@@ -5,6 +5,11 @@ var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
 // src/index.ts
+async function secret(v) {
+  if (!v) return "";
+  return typeof v === "string" ? v : await v.get();
+}
+__name(secret, "secret");
 var DEFAULT_ORIGINS = "https://grobler96.github.io,https://www.spinpixuk.co.uk,https://spinpixuk.co.uk";
 var ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 var enc = new TextEncoder();
@@ -45,15 +50,15 @@ var newCustomerPassword = /* @__PURE__ */ __name(() => {
   const p = randomString(8);
   return `${p.slice(0, 4)}-${p.slice(4)}`;
 }, "newCustomerPassword");
-async function hmac(secret, data) {
-  const key = await crypto.subtle.importKey("raw", enc.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+async function hmac(secret2, data) {
+  const key = await crypto.subtle.importKey("raw", enc.encode(secret2), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   return b64(await crypto.subtle.sign("HMAC", key, enc.encode(data)));
 }
 __name(hmac, "hmac");
 async function makeToken(env, role, subject) {
   const exp = Math.floor(Date.now() / 1e3) + TOKEN_HOURS[role] * 3600;
   const body = `${role}.${subject}.${exp}`;
-  return `${body}.${await hmac(env.TOKEN_SECRET, body)}`;
+  return `${body}.${await hmac(await secret(env.TOKEN_SECRET), body)}`;
 }
 __name(makeToken, "makeToken");
 async function readToken(env, request, role) {
@@ -63,7 +68,7 @@ async function readToken(env, request, role) {
   if (parts.length !== 4) return null;
   const [r, subject, exp, sig] = parts;
   if (r !== role || Number(exp) < Date.now() / 1e3) return null;
-  if (!same(sig, await hmac(env.TOKEN_SECRET, `${r}.${subject}.${exp}`))) return null;
+  if (!same(sig, await hmac(await secret(env.TOKEN_SECRET), `${r}.${subject}.${exp}`))) return null;
   return subject;
 }
 __name(readToken, "readToken");
@@ -204,7 +209,8 @@ async function route(request, env) {
   if (path === "/api/admin/login" && method === "POST") {
     const clearThrottle = await throttle(env, request, "admin");
     const b = await json();
-    if (!env.ADMIN_PASSWORD || !same(await sha256(clean(b.password, 200)), await sha256(env.ADMIN_PASSWORD))) throw new HttpError(401, "Wrong password.");
+    const adminPassword = await secret(env.ADMIN_PASSWORD);
+    if (!adminPassword || !same(await sha256(clean(b.password, 200)), await sha256(adminPassword))) throw new HttpError(401, "Wrong password.");
     await clearThrottle();
     return reply(request, env, { token: await makeToken(env, "admin", "admin") });
   }
