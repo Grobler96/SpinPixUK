@@ -66,7 +66,12 @@ function Manager({ token, onLogout }: { token: string; onLogout: () => void }) {
 
   const submit = async (ev: FormEvent) => {
     ev.preventDefault();
-    setBusy(true); setError('');
+    setError('');
+    if (form.guestLink && form.guestLink.trim() === form.galleryLink.trim()) {
+      setError('The Virtual Booth QR link and the gallery link are the same. They should be two different links: the QR link is the one the Virtual Booth QR code opens (guests upload there), the gallery link is where the photos are viewed.');
+      return;
+    }
+    setBusy(true);
     try {
       if (editing) {
         await adminUpdate(token, editing, form);
@@ -120,8 +125,8 @@ function Manager({ token, onLogout }: { token: string; onLogout: () => void }) {
         <h2 className="sm:col-span-2 font-display font-extrabold text-2xl">{editing ? `Edit ${editing}` : 'New event'}</h2>
         <Field id="title" label="Event name *" hint="Shown to the couple and on the table cards, e.g. Toni & Luke"><input id="title" required maxLength={80} className="field" value={form.title} onChange={(e) => set('title', e.target.value)} /></Field>
         <Field id="date" label="Event date"><input id="date" type="date" className="field" value={form.eventDate} onChange={(e) => set('eventDate', e.target.value)} /></Field>
-        <Field id="guest" label="Guest upload link (from TouchPix)" hint="The link guests open to upload. The QR code is made from this."><input id="guest" type="url" placeholder="https://…" className="field" value={form.guestLink} onChange={(e) => set('guestLink', e.target.value)} /></Field>
-        <Field id="gallery" label="Gallery link (from TouchPix)"><input id="gallery" type="url" placeholder="https://…" className="field" value={form.galleryLink} onChange={(e) => set('galleryLink', e.target.value)} /></Field>
+        <Field id="guest" label="Virtual Booth QR link (guest upload)" hint="The address the Virtual Booth QR code opens, where guests upload photos. Scan that QR with your phone and copy the address, or copy it from TouchPix. The QR on the table cards is made from this. Do NOT paste the gallery link here."><input id="guest" type="url" placeholder="https://…" className="field" value={form.guestLink} onChange={(e) => set('guestLink', e.target.value)} /></Field>
+        <Field id="gallery" label="Gallery link (from TouchPix)" hint="Where the photos are viewed afterwards. This is a different link from the QR link."><input id="gallery" type="url" placeholder="https://…" className="field" value={form.galleryLink} onChange={(e) => set('galleryLink', e.target.value)} /></Field>
         <Field id="until" label="Gallery kept until" hint="When TouchPix stops storing it. On MultiPass that is 6 months from when the event was created in TouchPix, not from the event date."><input id="until" type="date" className="field" value={form.galleryUntil} onChange={(e) => set('galleryUntil', e.target.value)} /></Field>
         <Field id="gpass" label="Gallery password (only if it has one)"><input id="gpass" maxLength={100} className="field" value={form.galleryPassword} onChange={(e) => set('galleryPassword', e.target.value)} /></Field>
         <div className="flex items-end">
