@@ -78,7 +78,7 @@ function Portal({ event, onLogout }: { event: PortalEvent; onLogout: () => void 
 
       {/* QR + cards */}
       <section className="rounded-[2rem] border-2 border-line bg-card p-6 sm:p-8 shadow-hard">
-        <h2 className="font-display font-extrabold text-2xl sm:text-3xl">1. Your guest QR code</h2>
+        <h2 className="font-display font-extrabold text-2xl sm:text-3xl">{event.guestLink ? '1. Your guest QR code' : '1. Guest photo uploads'}</h2>
         {event.guestLink ? (
           <div className="mt-6 grid gap-8 md:grid-cols-[auto_1fr] items-start">
             <div className="rounded-3xl bg-white p-4 w-fit">
@@ -95,7 +95,13 @@ function Portal({ event, onLogout }: { event: PortalEvent; onLogout: () => void 
             </div>
           </div>
         ) : (
-          <p className="mt-4 text-lg text-paper/75">Your QR code isn’t ready yet. We’ll add it before your event and you’ll be able to print your table cards here.</p>
+          <div className="mt-4 space-y-4">
+            <p className="text-lg text-paper/80">If you want your guests to be able to upload their pictures to the gallery, contact us to add this feature.</p>
+            <div className="flex flex-wrap gap-2">
+              <Link to="/contact" className="btn btn-pop">Contact us <Icon name="ArrowRight" size={18} /></Link>
+              <a href={site.phoneHref} className="btn btn-ghost"><Icon name="Phone" size={18} /> {site.phone}</a>
+            </div>
+          </div>
         )}
         {event.notes && <p className="mt-6 rounded-2xl border-2 border-line px-4 py-3 text-paper/85">{event.notes}</p>}
       </section>
@@ -105,7 +111,7 @@ function Portal({ event, onLogout }: { event: PortalEvent; onLogout: () => void 
         <h2 className="font-display font-extrabold text-2xl sm:text-3xl">2. Your gallery</h2>
         {event.galleryLink ? (
           <>
-            <p className="mt-4 text-lg text-paper/80">Every photo and video your guests add appears in your private gallery.{until ? ` It’s kept until ${until}, so please download your favourites before then.` : ' Please download your favourites once your event is over.'}</p>
+            <p className="mt-4 text-lg text-paper/80">{event.guestLink ? 'Every photo and video your guests add appears in your private gallery.' : 'Your photos from the booth appear in your private gallery.'}{until ? ` It’s kept until ${until}, so please download your favourites before then.` : ' Please download your favourites once your event is over.'}</p>
             <div className="mt-5 flex flex-wrap items-center gap-2">
               <a href={event.galleryLink} target="_blank" rel="noopener noreferrer" className="btn btn-sun">Open my gallery <Icon name="ArrowRight" size={18} /></a>
               <CopyButton text={event.galleryLink} label="Copy gallery link" />
