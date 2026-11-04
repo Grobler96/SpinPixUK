@@ -6,7 +6,8 @@
   "description": "Small API behind the SpinPix UK event portal (Cloudflare Worker + KV)",
   "scripts": {
     "dev": "wrangler dev --local",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "build:dashboard": "node scripts/build-dashboard.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
