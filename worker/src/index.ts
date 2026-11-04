@@ -44,6 +44,7 @@ type StoredEvent = {
   updatedAt: string;
 };
 
+const DEFAULT_ORIGINS = 'https://grobler96.github.io,https://www.spinpixuk.co.uk,https://spinpixuk.co.uk';
 const ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; // no 0/O, 1/I/L
 const enc = new TextEncoder();
 const TOKEN_HOURS = { admin: 12, event: 8 } as const;
@@ -107,7 +108,7 @@ async function readToken(env: Env, request: Request, role: 'admin' | 'event'): P
 /* ---------- responses & CORS ---------- */
 function corsHeaders(request: Request, env: Env): Record<string, string> {
   const origin = request.headers.get('Origin');
-  const allowed = env.ALLOWED_ORIGINS.split(',').map((s) => s.trim()).filter(Boolean);
+  const allowed = (env.ALLOWED_ORIGINS || DEFAULT_ORIGINS).split(',').map((s) => s.trim()).filter(Boolean);
   const h: Record<string, string> = { Vary: 'Origin' };
   if (origin && allowed.includes(origin)) {
     h['Access-Control-Allow-Origin'] = origin;

@@ -30,7 +30,10 @@ Couples log in at `/my-event` with an event code and password to get their guest
 The team creates and manages events at `/admin`. Guests upload through TouchPix; this portal only stores the event details
 (name, date, the TouchPix guest and gallery links, the gallery password) in a small Cloudflare Worker in `worker/`.
 
-**Deploy the Worker once** (needs a free Cloudflare account):
+**Easiest: no terminal.** Follow `docs/cloudflare-setup.md`: it is all clicking in the Cloudflare website and pasting in `worker/dashboard/worker.js`
+(a ready-made single file, rebuilt with `npm run build:dashboard` in `worker/` whenever `worker/src/index.ts` changes).
+
+**Developers: deploy from the terminal** (needs a free Cloudflare account):
 
 ```bash
 cd worker
