@@ -1,8 +1,10 @@
-/* B: use with the transparent logo uploaded in TouchPix. True neon glow that follows the letters, float and pulse. */
-.header_logo { position: relative; display:flex; justify-content:center; padding: 8px 0 4px; }
-.header_logo_image { width:min(520px,90vw) !important; height:auto !important; max-height:none !important; object-fit:contain;
+/* SpinPix header on TouchPix event pages: no black box, neon glow that follows the letters, gentle float and pulse.
+   Use together with the transparent logo (spinpix-gallery-logo.png). Covers the gallery page and the guest upload page. */
+.header_logo, .qr-header { position: relative; display:flex; justify-content:center; padding: 8px 0 4px; }
+.header_logo_image, .qr-header_logo { width:min(520px,90vw) !important; height:auto !important; max-height:none !important; object-fit:contain;
   animation: spxFloat 5.5s ease-in-out infinite, spxGlow 3.2s ease-in-out infinite; }
+.qr-header_logo { width:min(300px,76vw) !important; }          /* a little smaller on the guest upload page */
 @keyframes spxFloat { 0%,100% { transform: translateY(0) rotate(-1.2deg);} 50% { transform: translateY(-9px) rotate(1.2deg);} }
 @keyframes spxGlow  { 0%,100% { filter: drop-shadow(0 0 8px rgba(255,46,147,.55)) drop-shadow(0 0 22px rgba(139,61,255,.5)); }
                       50%     { filter: drop-shadow(0 0 16px rgba(255,46,147,.95)) drop-shadow(0 0 44px rgba(77,225,255,.65)); } }
-@media (prefers-reduced-motion: reduce) { .header_logo_image { animation:none; } }
+@media (prefers-reduced-motion: reduce) { .header_logo_image, .qr-header_logo { animation:none; } }

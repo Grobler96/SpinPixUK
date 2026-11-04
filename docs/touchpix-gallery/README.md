@@ -11,6 +11,6 @@ If there is no custom CSS box, step 1 alone removes the black box. If you would 
 use `gallery-header-keep-current-logo.css` instead of both steps (it hides the black with a blend effect; the result is
 less crisp, so the transparent logo is better).
 
-The CSS targets TouchPix's `.header_logo` and `.header_logo_image` classes. If TouchPix ever renames them, the styling
+The CSS targets TouchPix's `.header_logo` / `.header_logo_image` classes (gallery page) and `.qr-header` / `.qr-header_logo` (guest upload page). If TouchPix ever renames them, the styling
 will stop applying and the gallery just falls back to the plain logo. `before-and-after.png` shows the difference.
 The animation switches itself off for visitors who have "reduce motion" turned on.
